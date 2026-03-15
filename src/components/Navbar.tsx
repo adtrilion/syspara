@@ -7,16 +7,16 @@ import { Menu, X, ChevronDown } from 'lucide-react';
 const mainNav = [
   { href: '/', label: 'Home' },
   { href: '/services', label: 'Services' },
-  { href: '/industries', label: 'Industries' },
   { href: '/portfolio', label: 'Portfolio' },
   { href: '/blog', label: 'Blog' },
+  { href: '/demo', label: 'Demo' },
   { href: '/contact', label: 'Contact' },
 ];
 
 const aiNav = [
   { href: '/ai-solutions', label: 'AI Solutions' },
   { href: '/ai-agents', label: 'AI Agents' },
-  { href: '/ai-demo', label: 'AI Demo' },
+  { href: '/demo', label: 'AI Demo' },
   { href: '/dashboard', label: 'Dashboard' },
 ];
 
@@ -26,7 +26,7 @@ const allMobileNav = [
   { href: '/services', label: 'Services' },
   { href: '/ai-solutions', label: 'AI Solutions' },
   { href: '/ai-agents', label: 'AI Agents' },
-  { href: '/ai-demo', label: 'AI Demo' },
+  { href: '/demo', label: 'AI Demo' },
   { href: '/dashboard', label: 'Dashboard' },
   { href: '/industries', label: 'Industries' },
   { href: '/portfolio', label: 'Portfolio' },
