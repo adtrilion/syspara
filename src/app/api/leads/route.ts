@@ -10,7 +10,7 @@ export async function POST(req: NextRequest) {
   }
 
   const { error } = await resend.emails.send({
-    from: 'SysPara Leads <onboarding@resend.dev>',
+    from: 'SysPara Leads <no-reply@syspara.in>',
     to: 'leads@syspara.in',
     replyTo: email,
     subject: `New Lead: ${service} — ${name}`,

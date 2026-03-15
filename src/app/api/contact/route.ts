@@ -10,7 +10,7 @@ export async function POST(req: NextRequest) {
   }
 
   const { error } = await resend.emails.send({
-    from: 'SysPara Website <onboarding@resend.dev>',
+    from: 'SysPara Website <no-reply@syspara.in>',
     to: 'info@syspara.in',
     replyTo: email,
     subject: subject || `Enquiry from ${name}`,
