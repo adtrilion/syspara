@@ -1,23 +1,39 @@
+import AnimatedSection from '@/components/ui/AnimatedSection';
+import { Brain, MessageSquare, Eye, Sparkles, RefreshCw, Server } from 'lucide-react';
+
 const capabilities = [
-  { title: 'Machine Learning', desc: 'Predictive models that analyze patterns and improve decisions.' },
-  { title: 'Natural Language Processing', desc: 'AI systems that understand and generate human language.' },
-  { title: 'Computer Vision', desc: 'AI systems capable of analyzing images and video data.' },
-  { title: 'Generative AI', desc: 'LLM-powered tools that create content, code, and insights on demand.' },
-  { title: 'Reinforcement Learning', desc: 'Agents that learn optimal strategies through continuous feedback loops.' },
-  { title: 'MLOps & Deployment', desc: 'Production-grade pipelines to deploy, monitor, and retrain AI models.' },
+  { icon: <Brain size={22} />, title: 'Machine Learning', desc: 'Predictive models that analyze patterns and improve decisions.', color: 'from-blue-500 to-blue-700' },
+  { icon: <MessageSquare size={22} />, title: 'Natural Language Processing', desc: 'AI systems that understand and generate human language.', color: 'from-purple-500 to-purple-700' },
+  { icon: <Eye size={22} />, title: 'Computer Vision', desc: 'AI systems capable of analyzing images and video data.', color: 'from-cyan-500 to-cyan-700' },
+  { icon: <Sparkles size={22} />, title: 'Generative AI', desc: 'LLM-powered tools that create content, code, and insights on demand.', color: 'from-violet-500 to-violet-700' },
+  { icon: <RefreshCw size={22} />, title: 'Reinforcement Learning', desc: 'Agents that learn optimal strategies through continuous feedback loops.', color: 'from-emerald-500 to-emerald-700' },
+  { icon: <Server size={22} />, title: 'MLOps & Deployment', desc: 'Production-grade pipelines to deploy, monitor, and retrain AI models.', color: 'from-orange-500 to-orange-700' },
 ];
 
 export default function AICapabilities() {
   return (
-    <section className="py-24">
+    <section className="py-24 bg-white">
       <div className="max-w-6xl mx-auto px-4">
-        <h2 className="text-3xl font-bold text-center mb-12">Our AI Capabilities</h2>
-        <div className="grid md:grid-cols-3 gap-8">
-          {capabilities.map((item) => (
-            <div key={item.title} className="border p-6 rounded-xl hover:shadow-md transition-shadow">
-              <h3 className="font-semibold mb-2">{item.title}</h3>
-              <p className="text-gray-600 text-sm">{item.desc}</p>
-            </div>
+        <AnimatedSection className="text-center mb-14">
+          <span className="inline-block rounded-full bg-blue-50 border border-blue-100 px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-blue-600 mb-4">
+            Capabilities
+          </span>
+          <h2 className="text-4xl font-bold text-slate-900">Our AI Capabilities</h2>
+          <p className="mt-4 text-slate-500 max-w-xl mx-auto">
+            A full spectrum of AI technologies applied to real business problems.
+          </p>
+        </AnimatedSection>
+        <div className="grid md:grid-cols-3 gap-6">
+          {capabilities.map((item, i) => (
+            <AnimatedSection key={item.title} delay={i * 0.08}>
+              <div className="group rounded-2xl border border-slate-200 bg-white p-6 shadow-sm hover:shadow-xl hover:shadow-blue-500/10 hover:border-blue-200 hover:-translate-y-1 transition-all duration-300">
+                <div className={`mb-4 inline-flex rounded-xl bg-gradient-to-br ${item.color} p-3 text-white`}>
+                  {item.icon}
+                </div>
+                <h3 className="font-semibold text-slate-900 mb-2">{item.title}</h3>
+                <p className="text-sm text-slate-500 leading-relaxed">{item.desc}</p>
+              </div>
+            </AnimatedSection>
           ))}
         </div>
       </div>

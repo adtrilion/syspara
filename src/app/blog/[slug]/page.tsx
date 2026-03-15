@@ -1,6 +1,7 @@
 import { blogPosts } from '@/data/blogPosts';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
+import Image from 'next/image';
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -28,6 +29,11 @@ export default async function BlogPostPage({ params }: Props) {
       <Link href="/blog" className="text-sm text-blue-600 hover:underline mb-8 inline-block">
         ← Back to Blog
       </Link>
+      {post.image && (
+        <div className="relative h-72 w-full rounded-2xl overflow-hidden mb-10">
+          <Image src={post.image} alt={post.title} fill className="object-cover" />
+        </div>
+      )}
       <span className="block text-xs font-semibold text-blue-600 uppercase tracking-widest mb-3">
         {post.category}
       </span>

@@ -1,34 +1,56 @@
+import AnimatedSection from '@/components/ui/AnimatedSection';
+import Image from 'next/image';
+
 const layers = [
-  { step: '01', label: 'LLM Core', desc: 'A large language model handles reasoning, planning, and natural language understanding.' },
-  { step: '02', label: 'Tool Layer', desc: 'Agents connect to APIs, databases, search engines, and internal business systems.' },
-  { step: '03', label: 'Memory Store', desc: 'Short and long-term memory enables context retention across tasks and sessions.' },
-  { step: '04', label: 'Orchestration', desc: 'A controller manages task queues, agent coordination, and error recovery.' },
-  { step: '05', label: 'Guardrails', desc: 'Safety filters, audit logs, and human-in-the-loop checkpoints ensure reliable output.' },
+  { step: '01', label: 'LLM Core', desc: 'A large language model handles reasoning, planning, and natural language understanding.', color: 'from-blue-600 to-blue-800' },
+  { step: '02', label: 'Tool Layer', desc: 'Agents connect to APIs, databases, search engines, and internal business systems.', color: 'from-purple-600 to-purple-800' },
+  { step: '03', label: 'Memory Store', desc: 'Short and long-term memory enables context retention across tasks and sessions.', color: 'from-cyan-600 to-cyan-800' },
+  { step: '04', label: 'Orchestration', desc: 'A controller manages task queues, agent coordination, and error recovery.', color: 'from-emerald-600 to-emerald-800' },
+  { step: '05', label: 'Guardrails', desc: 'Safety filters, audit logs, and human-in-the-loop checkpoints ensure reliable output.', color: 'from-violet-600 to-violet-800' },
 ];
 
 export default function AIAgentArchitecture() {
   return (
-    <section className="py-24 bg-gray-50">
+    <section className="py-24 bg-white">
       <div className="max-w-6xl mx-auto px-4">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl font-bold mb-4">AI Agent Architecture</h2>
-          <p className="text-gray-600 max-w-2xl mx-auto">
-            Our AI agents integrate language models, business logic, APIs, and knowledge
-            bases to perform complex tasks reliably at scale.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4">
-          {layers.map((layer) => (
-            <div key={layer.step} className="flex items-start gap-6 rounded-xl border bg-white p-6 shadow-sm">
-              <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-blue-50 text-blue-600 font-bold text-sm border border-blue-200">
-                {layer.step}
-              </span>
-              <div>
-                <h3 className="font-semibold text-slate-900 mb-1">{layer.label}</h3>
-                <p className="text-sm text-gray-600">{layer.desc}</p>
-              </div>
+        <div className="grid md:grid-cols-2 gap-12 items-center">
+          <AnimatedSection>
+            <span className="inline-block rounded-full bg-blue-50 border border-blue-100 px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-blue-600 mb-4">
+              Architecture
+            </span>
+            <h2 className="text-4xl font-bold text-slate-900 mb-4">AI Agent Architecture</h2>
+            <p className="text-slate-500 mb-8 leading-relaxed">
+              Our AI agents integrate language models, business logic, APIs, and knowledge bases to perform complex tasks reliably at scale.
+            </p>
+            <div className="space-y-3">
+              {layers.map((layer, i) => (
+                <AnimatedSection key={layer.step} delay={i * 0.08}>
+                  <div className="flex items-start gap-4 rounded-xl border border-slate-200 bg-white p-4 shadow-sm hover:shadow-md hover:border-blue-200 transition-all duration-200">
+                    <div className={`shrink-0 flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br ${layer.color} text-white font-bold text-sm`}>
+                      {layer.step}
+                    </div>
+                    <div>
+                      <h3 className="font-semibold text-slate-900 text-sm">{layer.label}</h3>
+                      <p className="text-xs text-slate-500 mt-1 leading-relaxed">{layer.desc}</p>
+                    </div>
+                  </div>
+                </AnimatedSection>
+              ))}
             </div>
-          ))}
+          </AnimatedSection>
+
+          <AnimatedSection delay={0.2}>
+            <div className="relative rounded-2xl overflow-hidden shadow-2xl shadow-blue-500/10">
+              <Image
+                src="https://images.unsplash.com/photo-1620712943543-bcc4688e7485?w=800&q=80"
+                alt="AI Agent Architecture"
+                width={600}
+                height={500}
+                className="object-cover w-full h-full"
+              />
+              <div className="absolute inset-0 bg-gradient-to-tr from-blue-900/50 to-transparent" />
+            </div>
+          </AnimatedSection>
         </div>
       </div>
     </section>
