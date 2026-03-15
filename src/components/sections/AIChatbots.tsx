@@ -18,7 +18,7 @@ export default function AIChatbots() {
             <div className="relative rounded-2xl overflow-hidden shadow-2xl shadow-cyan-500/10">
               <Image
                 src="https://images.unsplash.com/photo-1531746790731-6c087fecd65a?w=800&q=80"
-                alt="AI Chatbots"
+                alt="AI chatbot interface providing instant customer support"
                 width={600}
                 height={450}
                 className="object-cover w-full h-full"

@@ -2,7 +2,6 @@
 
 import { motion } from 'framer-motion';
 import Link from 'next/link';
-import Button from '@/components/ui/Button';
 
 export default function Hero() {
   return (
@@ -71,13 +70,17 @@ export default function Hero() {
           transition={{ duration: 0.6, delay: 0.3 }}
           className="mt-10 flex flex-wrap justify-center gap-4"
         >
-          <Link href="/contact">
-            <Button>Get Free Consultation</Button>
+          <Link
+            href="/contact"
+            className="inline-flex items-center justify-center rounded-xl bg-gradient-to-r from-blue-600 to-purple-600 px-6 py-3 font-semibold text-sm text-white hover:scale-105 hover:shadow-lg hover:shadow-blue-500/25 transition-all duration-200"
+          >
+            Get Free Consultation
           </Link>
-          <Link href="/services">
-            <Button variant="outline" className="border-white/20 text-white hover:bg-white/10 hover:border-white/40">
-              Explore Services
-            </Button>
+          <Link
+            href="/services"
+            className="inline-flex items-center justify-center rounded-xl border border-white/20 px-6 py-3 font-semibold text-sm text-white hover:bg-white/10 hover:border-white/40 transition-all duration-200"
+          >
+            Explore Services
           </Link>
         </motion.div>
 

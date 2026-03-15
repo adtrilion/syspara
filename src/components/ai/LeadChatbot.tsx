@@ -182,6 +182,9 @@ export default function LeadChatbot() {
             transition={{ duration: 0.2, ease: 'easeOut' }}
             className="fixed bottom-24 right-6 z-50 w-[340px] max-w-[calc(100vw-2rem)] rounded-2xl border border-white/10 bg-slate-950 shadow-2xl shadow-black/50 overflow-hidden flex flex-col"
             style={{ maxHeight: '480px' }}
+            role="dialog"
+            aria-modal="true"
+            aria-label="SysPara AI chat assistant"
           >
             {/* Header */}
             <div className="flex items-center gap-3 border-b border-white/8 bg-gradient-to-r from-blue-600/20 to-purple-600/20 px-4 py-3">

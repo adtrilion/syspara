@@ -43,7 +43,7 @@ export default function AIAnalytics() {
             <div className="relative rounded-2xl overflow-hidden shadow-2xl shadow-emerald-500/10">
               <Image
                 src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&q=80"
-                alt="Predictive Analytics"
+                alt="Predictive analytics dashboard showing business intelligence charts"
                 width={600}
                 height={450}
                 className="object-cover w-full h-full"

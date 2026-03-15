@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { useEffect, useRef, useState } from 'react';
+import { usePathname } from 'next/navigation';
 import { Menu, X, ChevronDown } from 'lucide-react';
 
 const mainNav = [
@@ -39,6 +40,12 @@ export default function Navbar() {
   const [aiOpen, setAiOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
+  const pathname = usePathname();
+
+  useEffect(() => {
+    setMenuOpen(false);
+    setAiOpen(false);
+  }, [pathname]);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);

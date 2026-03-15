@@ -43,7 +43,7 @@ export default function AIAutomation() {
             <div className="relative rounded-2xl overflow-hidden shadow-2xl shadow-purple-500/10">
               <Image
                 src="https://images.unsplash.com/photo-1518770660439-4636190af475?w=800&q=80"
-                alt="AI Automation"
+                alt="Workflow automation and AI-powered process management dashboard"
                 width={600}
                 height={450}
                 className="object-cover w-full h-full"

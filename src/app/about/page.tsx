@@ -1,3 +1,6 @@
+'use client';
+
+import { motion } from 'framer-motion';
 import AnimatedSection from '@/components/ui/AnimatedSection';
 import CTA from '@/components/ui/CTASection';
 import { Target, Eye, Heart, Users, Award, Zap } from 'lucide-react';
@@ -44,23 +47,20 @@ export default function AboutPage() {
       {/* Hero */}
       <section className="relative bg-slate-950 py-28 text-white overflow-hidden">
         <div className="absolute inset-0 pointer-events-none overflow-hidden">
-          <div className="absolute -top-40 -left-40 w-[500px] h-[500px] rounded-full bg-blue-600 opacity-10 blur-3xl" />
-          <div className="absolute -bottom-40 -right-40 w-[400px] h-[400px] rounded-full bg-purple-600 opacity-10 blur-3xl" />
+          <motion.div className="absolute -top-40 -left-40 w-[500px] h-[500px] rounded-full bg-blue-600 opacity-10 blur-3xl" animate={{ x: [0, 60, 0], y: [0, 40, 0] }} transition={{ duration: 18, repeat: Infinity, ease: 'easeInOut' }} />
+          <motion.div className="absolute -bottom-40 -right-40 w-[400px] h-[400px] rounded-full bg-purple-600 opacity-10 blur-3xl" animate={{ x: [0, -50, 0], y: [0, -30, 0] }} transition={{ duration: 22, repeat: Infinity, ease: 'easeInOut' }} />
         </div>
         <div className="relative z-10 max-w-4xl mx-auto px-4 text-center">
-          <AnimatedSection>
-            <span className="inline-block rounded-full border border-white/10 bg-white/5 px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-slate-300 mb-6">
-              About SysPara
-            </span>
-            <h1 className="text-5xl font-bold leading-tight md:text-6xl">
-              We Build the <span className="gradient-text">AI Infrastructure</span> of Tomorrow
-            </h1>
-            <p className="mt-6 text-lg text-slate-400 max-w-2xl mx-auto leading-relaxed">
-              SysPara is a full-stack AI and digital transformation consultancy. We partner with
-              ambitious businesses to design, build, and operate intelligent systems that drive
-              measurable growth.
-            </p>
-          </AnimatedSection>
+          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }} className="mb-6 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-1.5 text-sm text-slate-300 backdrop-blur-sm">
+            <span className="h-2 w-2 rounded-full bg-blue-400 animate-pulse" />
+            About SysPara
+          </motion.div>
+          <motion.h1 initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.1 }} className="text-5xl font-bold leading-tight md:text-6xl">
+            We Build the <span className="gradient-text">AI Infrastructure</span> of Tomorrow
+          </motion.h1>
+          <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.2 }} className="mt-6 text-lg text-slate-400 max-w-2xl mx-auto leading-relaxed">
+            SysPara is a full-stack AI and digital transformation consultancy. We partner with ambitious businesses to design, build, and operate intelligent systems that drive measurable growth.
+          </motion.p>
         </div>
       </section>
 
