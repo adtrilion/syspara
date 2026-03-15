@@ -1,18 +1,18 @@
 import AnimatedSection from '@/components/ui/AnimatedSection';
 
 const stack = [
-  { name: 'React', color: 'text-cyan-600 bg-cyan-50 border-cyan-200' },
-  { name: 'Next.js', color: 'text-slate-700 bg-slate-50 border-slate-200' },
-  { name: 'Node.js', color: 'text-emerald-600 bg-emerald-50 border-emerald-200' },
-  { name: 'Python', color: 'text-blue-600 bg-blue-50 border-blue-200' },
-  { name: 'TensorFlow', color: 'text-orange-600 bg-orange-50 border-orange-200' },
-  { name: 'AWS', color: 'text-yellow-700 bg-yellow-50 border-yellow-200' },
-  { name: 'Docker', color: 'text-blue-500 bg-blue-50 border-blue-200' },
-  { name: 'PostgreSQL', color: 'text-indigo-600 bg-indigo-50 border-indigo-200' },
-  { name: 'TypeScript', color: 'text-blue-700 bg-blue-50 border-blue-200' },
-  { name: 'React Native', color: 'text-cyan-700 bg-cyan-50 border-cyan-200' },
-  { name: 'Kubernetes', color: 'text-blue-600 bg-blue-50 border-blue-200' },
-  { name: 'OpenAI', color: 'text-slate-700 bg-slate-50 border-slate-200' },
+  { name: 'React', className: 'text-cyan-600 bg-cyan-50 border-cyan-200' },
+  { name: 'Next.js', className: 'text-slate-700 bg-slate-50 border-slate-200' },
+  { name: 'Node.js', className: 'text-emerald-600 bg-emerald-50 border-emerald-200' },
+  { name: 'Python', className: 'text-blue-600 bg-blue-50 border-blue-200' },
+  { name: 'TensorFlow', className: 'text-orange-600 bg-orange-50 border-orange-200' },
+  { name: 'AWS', className: 'text-yellow-700 bg-yellow-50 border-yellow-200' },
+  { name: 'Docker', className: 'text-sky-600 bg-sky-50 border-sky-200' },
+  { name: 'PostgreSQL', className: 'text-indigo-600 bg-indigo-50 border-indigo-200' },
+  { name: 'TypeScript', className: 'text-blue-700 bg-blue-50 border-blue-200' },
+  { name: 'React Native', className: 'text-cyan-700 bg-cyan-50 border-cyan-200' },
+  { name: 'Kubernetes', className: 'text-violet-600 bg-violet-50 border-violet-200' },
+  { name: 'OpenAI', className: 'text-slate-700 bg-slate-50 border-slate-200' },
 ];
 
 export default function TechStack() {
@@ -33,7 +33,7 @@ export default function TechStack() {
             {stack.map((tech) => (
               <div
                 key={tech.name}
-                className={`rounded-xl border px-4 py-4 text-sm font-semibold shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 ${tech.color}`}
+                className={`rounded-xl border px-4 py-4 text-sm font-semibold shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 ${tech.className}`}
               >
                 {tech.name}
               </div>
