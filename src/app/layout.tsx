@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
+import Script from 'next/script';
 import './globals.css';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
@@ -62,6 +63,18 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${inter.variable} font-sans antialiased`}>
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-MG0BEJBZB9"
+          strategy="afterInteractive"
+        />
+        <Script id="ga4" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-MG0BEJBZB9');
+          `}
+        </Script>
         <a href="#main-content" className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:rounded-lg focus:bg-blue-600 focus:px-4 focus:py-2 focus:text-white focus:font-semibold">
           Skip to content
         </a>

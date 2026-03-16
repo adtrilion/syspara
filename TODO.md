@@ -6,16 +6,20 @@
 > Full codebase audit — all issues fixed
 
 ### Fixed
-- [x] AIPlayground.tsx — historyRef bug (same root cause as LeadChatbot) — replaced with buildHistory() from messages state
-- [x] AIPlayground.tsx — doubled system prompt (was sending system role in messages array AND server was prepending SITE_KNOWLEDGE) — /api/chat now accepts optional `systemPrompt` from client
-- [x] AIPlayground.tsx — nextId() stale closure (was using useState) — replaced with useRef like LeadChatbot
-- [x] /api/chat — no input validation — added message count limit + missing field check
-- [x] /api/estimator — no input validation — added required field check
-- [x] Navbar.tsx — Industries appeared in both mainNav and aiNav (duplicate) — removed from aiNav
-- [x] Navbar.tsx — About appeared in both mainNav and AI dropdown — removed from dropdown
+- [x] AIPlayground.tsx — historyRef bug — replaced with buildHistory() from messages state
+- [x] AIPlayground.tsx — doubled system prompt — /api/chat now accepts optional `systemPrompt` from client
+- [x] AIPlayground.tsx — nextId() stale closure — replaced with useRef
+- [x] /api/chat — no input validation — added message count limit + missing field check + rate limiting (30 req/min)
+- [x] /api/estimator — no input validation — added required field check + rate limiting (3 req/min)
+- [x] /api/leads — rate limiting added (5 req/min)
+- [x] /api/contact — rate limiting added (5 req/min)
+- [x] Navbar.tsx — duplicate Industries link removed from AI dropdown
+- [x] Navbar.tsx — duplicate About link removed from AI dropdown
+- [x] og-image — dynamic /api/og route built with Next.js ImageResponse (edge runtime)
+- [x] Lead storage — Supabase leads table, all leads saved from /api/leads and /api/estimator
 
 ### Pending (manual)
-- [ ] og-image.png missing from /public — Open Graph previews show no image on social shares. Needs a 1200×630 branded image designed and placed at /public/og-image.png
+- [ ] Add SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY to Vercel environment variables
 
 ---
 
@@ -145,4 +149,4 @@ Meeting Booked                   ⏳ Phase 9
 
 ---
 
-_Last updated: Technical audit complete (June 2025) — 7 issues fixed, pushed as df02bb4_
+_Last updated: All high priority tasks complete (June 2025) — pushed as faf471f_
