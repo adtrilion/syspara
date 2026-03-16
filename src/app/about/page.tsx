@@ -5,12 +5,6 @@ import AnimatedSection from '@/components/ui/AnimatedSection';
 import CTA from '@/components/ui/CTASection';
 import { Target, Eye, Heart, Users, Award, Zap } from 'lucide-react';
 
-export const metadata = {
-  title: 'About | SysPara',
-  description:
-    'Learn about SysPara — our mission, vision, values, and the team behind our AI and digital solutions.',
-};
-
 const values = [
   {
     icon: <Zap size={20} />,
