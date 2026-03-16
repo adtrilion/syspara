@@ -94,7 +94,12 @@ export default function LeadChatbot() {
         await fetch('/api/leads', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ name: updatedLead.name, email: updatedLead.email, message: need }),
+          body: JSON.stringify({
+            name: updatedLead.name,
+            email: updatedLead.email,
+            service: 'AI / Automation',
+            message: need,
+          }),
         });
       } catch {
         // silent — UX continues regardless

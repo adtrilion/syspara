@@ -17,14 +17,14 @@ const stack = [
 
 export default function TechStack() {
   return (
-    <section className="py-24 bg-slate-50">
+    <section className="py-24 bg-slate-950">
       <div className="max-w-5xl mx-auto px-4">
         <AnimatedSection className="text-center mb-14">
-          <span className="inline-block rounded-full bg-blue-50 border border-blue-100 px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-blue-600 mb-4">
+          <span className="inline-block rounded-full bg-blue-900/30 border border-blue-500/30 px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-blue-400 mb-4">
             Tech Stack
           </span>
-          <h2 className="text-4xl font-bold text-slate-900">Technologies We Use</h2>
-          <p className="mt-4 text-slate-500 max-w-xl mx-auto">
+          <h2 className="text-4xl font-bold text-white">Technologies We Use</h2>
+          <p className="mt-4 text-slate-400 max-w-xl mx-auto">
             Best-in-class tools and frameworks to build reliable, scalable solutions.
           </p>
         </AnimatedSection>
@@ -33,7 +33,7 @@ export default function TechStack() {
             {stack.map((tech) => (
               <div
                 key={tech.name}
-                className={`rounded-xl border px-4 py-4 text-sm font-semibold shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 ${tech.className}`}
+                className="rounded-xl border border-white/10 bg-white/5 px-4 py-4 text-sm font-semibold text-slate-300 hover:bg-white/10 hover:-translate-y-0.5 transition-all duration-200"
               >
                 {tech.name}
               </div>

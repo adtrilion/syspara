@@ -11,28 +11,24 @@ const features = [
 
 export default function AIAnalytics() {
   return (
-    <section className="py-24 bg-slate-50">
+    <section className="py-24 bg-slate-900">
       <div className="max-w-6xl mx-auto px-4">
         <div className="grid md:grid-cols-2 gap-12 items-center">
           <AnimatedSection>
-            <span className="inline-block rounded-full bg-emerald-50 border border-emerald-100 px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-emerald-600 mb-4">
+            <span className="inline-block rounded-full bg-emerald-900/30 border border-emerald-500/30 px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-emerald-400 mb-4">
               Analytics
             </span>
-            <h2 className="text-4xl font-bold text-slate-900 mb-4">
-              Predictive Analytics
-            </h2>
-            <p className="text-slate-500 mb-8 leading-relaxed">
+            <h2 className="text-4xl font-bold text-white mb-4">Predictive Analytics</h2>
+            <p className="text-slate-400 mb-8 leading-relaxed">
               AI-powered analytics systems that forecast trends, optimize operations, and support better decision-making across your business.
             </p>
             <div className="space-y-4">
               {features.map((f) => (
-                <div key={f.title} className="flex items-start gap-4 rounded-xl border border-slate-200 bg-white p-4 shadow-sm hover:shadow-md hover:border-emerald-200 transition-all duration-200">
-                  <div className="shrink-0 rounded-lg bg-gradient-to-br from-emerald-500 to-emerald-700 p-2 text-white">
-                    {f.icon}
-                  </div>
+                <div key={f.title} className="flex items-start gap-4 rounded-xl border border-white/10 bg-white/5 p-4 hover:bg-white/8 hover:border-emerald-500/30 transition-all duration-200">
+                  <div className="shrink-0 rounded-lg bg-gradient-to-br from-emerald-500 to-emerald-700 p-2 text-white">{f.icon}</div>
                   <div>
-                    <h3 className="font-semibold text-slate-900 text-sm">{f.title}</h3>
-                    <p className="text-xs text-slate-500 mt-1 leading-relaxed">{f.desc}</p>
+                    <h3 className="font-semibold text-white text-sm">{f.title}</h3>
+                    <p className="text-xs text-slate-400 mt-1 leading-relaxed">{f.desc}</p>
                   </div>
                 </div>
               ))}

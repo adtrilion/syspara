@@ -39,7 +39,7 @@ const details = [
 
 export default function ServiceDetails() {
   return (
-    <section className="py-24 bg-white">
+    <section className="py-24 bg-slate-900">
       <div className="max-w-6xl mx-auto px-4 space-y-20">
         {details.map((item, i) => (
           <AnimatedSection key={item.title}>
@@ -48,12 +48,12 @@ export default function ServiceDetails() {
                 <div className={`mb-4 inline-flex rounded-xl bg-gradient-to-br ${item.color} p-3 text-white`}>
                   {item.icon}
                 </div>
-                <h2 className="text-3xl font-bold text-slate-900 mb-3">{item.title}</h2>
-                <p className="text-slate-500 mb-6 leading-relaxed">{item.desc}</p>
+                <h2 className="text-3xl font-bold text-white mb-3">{item.title}</h2>
+                <p className="text-slate-400 mb-6 leading-relaxed">{item.desc}</p>
                 <ul className="grid sm:grid-cols-2 gap-2">
                   {item.bullets.map((b) => (
-                    <li key={b} className="flex items-center gap-2 text-sm text-slate-700">
-                      <span className="h-1.5 w-1.5 rounded-full bg-blue-600 shrink-0" />
+                    <li key={b} className="flex items-center gap-2 text-sm text-slate-300">
+                      <span className="h-1.5 w-1.5 rounded-full bg-blue-500 shrink-0" />
                       {b}
                     </li>
                   ))}

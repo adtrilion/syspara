@@ -26,7 +26,7 @@ export default async function BlogPostPage({ params }: Props) {
 
   return (
     <section className="max-w-3xl mx-auto px-4 py-24">
-      <Link href="/blog" className="text-sm text-blue-600 hover:underline mb-8 inline-block">
+      <Link href="/blog" className="text-sm text-blue-400 hover:text-blue-300 transition-colors mb-8 inline-block">
         ← Back to Blog
       </Link>
       {post.image && (
@@ -34,14 +34,14 @@ export default async function BlogPostPage({ params }: Props) {
           <Image src={post.image} alt={post.title} fill className="object-cover" />
         </div>
       )}
-      <span className="block text-xs font-semibold text-blue-600 uppercase tracking-widest mb-3">
+      <span className="block text-xs font-semibold text-blue-400 uppercase tracking-widest mb-3">
         {post.category}
       </span>
-      <h1 className="text-4xl font-bold text-slate-900 mb-4">{post.title}</h1>
-      <p className="text-sm text-slate-400 mb-10">{post.date} · {post.readTime}</p>
-      <div className="prose prose-slate max-w-none">
+      <h1 className="text-4xl font-bold text-white mb-4">{post.title}</h1>
+      <p className="text-sm text-slate-500 mb-10">{post.date} · {post.readTime}</p>
+      <div className="max-w-none">
         {post.content.split('\n\n').map((para, i) => (
-          <p key={i} className="text-gray-700 leading-relaxed mb-6">{para}</p>
+          <p key={i} className="text-slate-300 leading-relaxed mb-6">{para}</p>
         ))}
       </div>
       <div className="mt-16 relative overflow-hidden rounded-3xl bg-slate-950 p-10 text-center text-white">

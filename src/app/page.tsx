@@ -71,17 +71,17 @@ export default function Home() {
       <Hero />
 
       {/* Trust bar */}
-      <section className="border-t border-slate-100 bg-white py-16">
+      <section className="border-t border-white/10 bg-slate-900 py-16">
         <div className="max-w-6xl mx-auto px-4 text-center">
           <AnimatedSection>
-            <p className="text-xs font-semibold tracking-widest text-slate-400 uppercase mb-8">
+            <p className="text-xs font-semibold tracking-widest text-slate-500 uppercase mb-8">
               Trusted by Businesses Across Multiple Industries
             </p>
             <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
               {['Acme Corp', 'Helix AI', 'Nexus Labs', 'Pulse Tech'].map((name) => (
                 <div
                   key={name}
-                  className="rounded-xl border border-slate-100 bg-slate-50 px-6 py-5 text-sm font-semibold text-slate-500 hover:border-slate-200 hover:bg-white transition"
+                  className="rounded-xl border border-white/10 bg-white/5 px-6 py-5 text-sm font-semibold text-slate-400 hover:border-white/20 hover:bg-white/8 transition"
                 >
                   {name}
                 </div>
@@ -94,7 +94,7 @@ export default function Home() {
             {['React', 'Node.js', 'TensorFlow', 'AWS', 'Azure', 'OpenAI'].map((tech) => (
               <span
                 key={tech}
-                className="rounded-full border border-slate-200 bg-white px-4 py-1.5 text-xs font-medium text-slate-600 shadow-sm"
+                className="rounded-full border border-white/10 bg-white/5 px-4 py-1.5 text-xs font-medium text-slate-400"
               >
                 {tech}
               </span>
@@ -110,7 +110,7 @@ export default function Home() {
             ].map((stat) => (
               <div
                 key={stat.label}
-                className="rounded-2xl border border-slate-100 bg-gradient-to-br from-slate-50 to-white p-8 shadow-sm"
+                className="rounded-2xl border border-white/10 bg-white/5 p-8"
               >
                 <p className="text-4xl font-bold gradient-text">{stat.value}</p>
                 <p className="mt-1 text-sm text-slate-500">{stat.label}</p>
@@ -131,14 +131,14 @@ export default function Home() {
       <DashboardDemo />
 
       {/* Industries */}
-      <section className="py-24 bg-white">
+      <section className="py-24 bg-slate-900">
         <div className="max-w-6xl mx-auto px-4">
           <AnimatedSection className="text-center mb-14">
-            <span className="inline-block rounded-full bg-purple-50 border border-purple-100 px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-purple-600 mb-4">
+            <span className="inline-block rounded-full bg-purple-900/30 border border-purple-500/30 px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-purple-400 mb-4">
               Industries
             </span>
-            <h2 className="text-4xl font-bold text-slate-900">Industries We Serve</h2>
-            <p className="mt-4 text-slate-500 max-w-xl mx-auto">
+            <h2 className="text-4xl font-bold text-white">Industries We Serve</h2>
+            <p className="mt-4 text-slate-400 max-w-xl mx-auto">
               Sector-specific AI solutions built for the unique challenges of your industry.
             </p>
           </AnimatedSection>
@@ -159,14 +159,14 @@ export default function Home() {
       <div className="section-divider" />
 
       {/* Portfolio */}
-      <section className="py-24 bg-slate-50">
+      <section className="py-24 bg-slate-950">
         <div className="max-w-6xl mx-auto px-4">
           <AnimatedSection className="text-center mb-14">
-            <span className="inline-block rounded-full bg-cyan-50 border border-cyan-100 px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-cyan-600 mb-4">
+            <span className="inline-block rounded-full bg-cyan-900/30 border border-cyan-500/30 px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-cyan-400 mb-4">
               Portfolio
             </span>
-            <h2 className="text-4xl font-bold text-slate-900">Recent Work</h2>
-            <p className="mt-4 text-slate-500 max-w-xl mx-auto">
+            <h2 className="text-4xl font-bold text-white">Recent Work</h2>
+            <p className="mt-4 text-slate-400 max-w-xl mx-auto">
               A snapshot of the solutions we've shipped for clients across industries.
             </p>
           </AnimatedSection>
@@ -185,14 +185,14 @@ export default function Home() {
       </section>
 
       {/* Process */}
-      <section className="py-24 bg-white">
+      <section className="py-24 bg-slate-900">
         <div className="max-w-6xl mx-auto px-4">
           <AnimatedSection className="text-center mb-14">
-            <span className="inline-block rounded-full bg-blue-50 border border-blue-100 px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-blue-600 mb-4">
+            <span className="inline-block rounded-full bg-blue-900/30 border border-blue-500/30 px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-blue-400 mb-4">
               How We Work
             </span>
-            <h2 className="text-4xl font-bold text-slate-900">Our Process</h2>
-            <p className="mt-4 text-slate-500 max-w-xl mx-auto">
+            <h2 className="text-4xl font-bold text-white">Our Process</h2>
+            <p className="mt-4 text-slate-400 max-w-xl mx-auto">
               A proven 5-step framework that takes your idea from concept to production.
             </p>
           </AnimatedSection>
@@ -200,14 +200,14 @@ export default function Home() {
           <AnimatedSection delay={0.1}>
             <div className="relative grid grid-cols-1 gap-6 md:grid-cols-5">
               {/* Connector line */}
-              <div className="absolute top-8 left-0 right-0 hidden h-px bg-gradient-to-r from-blue-200 via-purple-200 to-cyan-200 md:block" />
+              <div className="absolute top-8 left-0 right-0 hidden h-px bg-gradient-to-r from-blue-500/30 via-purple-500/30 to-cyan-500/30 md:block" />
               {process.map((item, i) => (
                 <div key={item.step} className="relative flex flex-col items-center text-center">
                   <div className="relative z-10 mb-4 flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-blue-600 to-purple-600 text-white font-bold text-lg shadow-lg shadow-blue-500/20">
                     {item.step}
                   </div>
-                  <h3 className="font-semibold text-slate-900">{item.label}</h3>
-                  <p className="mt-2 text-sm text-slate-500 leading-relaxed">{item.desc}</p>
+                  <h3 className="font-semibold text-white">{item.label}</h3>
+                  <p className="mt-2 text-sm text-slate-400 leading-relaxed">{item.desc}</p>
                 </div>
               ))}
             </div>
@@ -216,14 +216,14 @@ export default function Home() {
       </section>
 
       {/* Testimonials */}
-      <section className="py-24 bg-slate-50">
+      <section className="py-24 bg-slate-950">
         <div className="max-w-6xl mx-auto px-4">
           <AnimatedSection className="text-center mb-14">
-            <span className="inline-block rounded-full bg-amber-50 border border-amber-100 px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-amber-600 mb-4">
+            <span className="inline-block rounded-full bg-amber-900/30 border border-amber-500/30 px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-amber-400 mb-4">
               Testimonials
             </span>
-            <h2 className="text-4xl font-bold text-slate-900">What Clients Say</h2>
-            <p className="mt-4 text-slate-500 max-w-xl mx-auto">
+            <h2 className="text-4xl font-bold text-white">What Clients Say</h2>
+            <p className="mt-4 text-slate-400 max-w-xl mx-auto">
               Real results from real businesses that partnered with SysPara.
             </p>
           </AnimatedSection>

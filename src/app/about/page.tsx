@@ -65,14 +65,14 @@ export default function AboutPage() {
       </section>
 
       {/* Stats */}
-      <section className="bg-white py-16 border-b border-slate-100">
+      <section className="bg-slate-900 py-16 border-b border-white/10">
         <div className="max-w-6xl mx-auto px-4">
           <div className="grid grid-cols-2 gap-6 md:grid-cols-4">
             {stats.map((stat, i) => (
               <AnimatedSection key={stat.label} delay={i * 0.08}>
-                <div className="text-center rounded-2xl border border-slate-100 bg-gradient-to-br from-slate-50 to-white p-8 shadow-sm">
+                <div className="text-center rounded-2xl border border-white/10 bg-white/5 p-8">
                   <p className="text-4xl font-bold gradient-text">{stat.value}</p>
-                  <p className="mt-1 text-sm text-slate-500">{stat.label}</p>
+                  <p className="mt-1 text-sm text-slate-400">{stat.label}</p>
                 </div>
               </AnimatedSection>
             ))}
@@ -81,29 +81,28 @@ export default function AboutPage() {
       </section>
 
       {/* Mission / Vision */}
-      <section className="py-24 bg-slate-50">
+      <section className="py-24 bg-slate-900">
         <div className="max-w-6xl mx-auto px-4">
           <div className="grid gap-8 md:grid-cols-2">
             <AnimatedSection delay={0}>
-              <div className="rounded-2xl border border-slate-200 bg-white p-10 shadow-sm h-full">
-                <div className="mb-5 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-blue-50 to-purple-50 text-blue-600">
+              <div className="rounded-2xl border border-white/10 bg-white/5 p-10 h-full">
+                <div className="mb-5 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-blue-600/20 to-purple-600/20 text-blue-400">
                   <Target size={22} />
                 </div>
-                <h2 className="text-2xl font-bold text-slate-900 mb-3">Our Mission</h2>
-                <p className="text-slate-500 leading-relaxed">
+                <h2 className="text-2xl font-bold text-white mb-3">Our Mission</h2>
+                <p className="text-slate-400 leading-relaxed">
                   Empower organisations with intelligent systems and scalable digital products that
-                  eliminate inefficiency, unlock new revenue, and create lasting competitive
-                  advantage.
+                  eliminate inefficiency, unlock new revenue, and create lasting competitive advantage.
                 </p>
               </div>
             </AnimatedSection>
             <AnimatedSection delay={0.1}>
-              <div className="rounded-2xl border border-slate-200 bg-white p-10 shadow-sm h-full">
-                <div className="mb-5 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-purple-50 to-cyan-50 text-purple-600">
+              <div className="rounded-2xl border border-white/10 bg-white/5 p-10 h-full">
+                <div className="mb-5 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-purple-600/20 to-cyan-600/20 text-purple-400">
                   <Eye size={22} />
                 </div>
-                <h2 className="text-2xl font-bold text-slate-900 mb-3">Our Vision</h2>
-                <p className="text-slate-500 leading-relaxed">
+                <h2 className="text-2xl font-bold text-white mb-3">Our Vision</h2>
+                <p className="text-slate-400 leading-relaxed">
                   To become the most trusted AI-enabled technology partner for businesses worldwide —
                   known for delivering outcomes, not just outputs, at every stage of the journey.
                 </p>
@@ -114,23 +113,23 @@ export default function AboutPage() {
       </section>
 
       {/* Values */}
-      <section className="py-24 bg-white">
+      <section className="py-24 bg-slate-950">
         <div className="max-w-6xl mx-auto px-4">
           <AnimatedSection className="text-center mb-14">
-            <span className="inline-block rounded-full bg-blue-50 border border-blue-100 px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-blue-600 mb-4">
+            <span className="inline-block rounded-full bg-blue-900/30 border border-blue-500/30 px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-blue-400 mb-4">
               What We Stand For
             </span>
-            <h2 className="text-4xl font-bold text-slate-900">Our Values</h2>
+            <h2 className="text-4xl font-bold text-white">Our Values</h2>
           </AnimatedSection>
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
             {values.map((v, i) => (
               <AnimatedSection key={v.title} delay={i * 0.08}>
-                <div className="group rounded-2xl border border-slate-200 bg-white p-7 shadow-sm hover:shadow-xl hover:shadow-blue-500/10 hover:border-blue-200 transition-all duration-300">
-                  <div className="mb-4 inline-flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-to-br from-blue-50 to-purple-50 text-blue-600 group-hover:from-blue-100 group-hover:to-purple-100 transition-colors">
+                <div className="group rounded-2xl border border-white/10 bg-white/5 p-7 hover:bg-white/8 hover:border-white/20 transition-all duration-300">
+                  <div className="mb-4 inline-flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-to-br from-blue-600/20 to-purple-600/20 text-blue-400 group-hover:from-blue-600/30 group-hover:to-purple-600/30 transition-colors">
                     {v.icon}
                   </div>
-                  <h3 className="font-semibold text-slate-900 mb-2">{v.title}</h3>
-                  <p className="text-sm text-slate-500 leading-relaxed">{v.description}</p>
+                  <h3 className="font-semibold text-white mb-2">{v.title}</h3>
+                  <p className="text-sm text-slate-400 leading-relaxed">{v.description}</p>
                 </div>
               </AnimatedSection>
             ))}

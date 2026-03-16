@@ -11,27 +11,27 @@ const layers = [
 
 export default function AIAgentArchitecture() {
   return (
-    <section className="py-24 bg-white">
+    <section className="py-24 bg-slate-900">
       <div className="max-w-6xl mx-auto px-4">
         <div className="grid md:grid-cols-2 gap-12 items-center">
           <AnimatedSection>
-            <span className="inline-block rounded-full bg-blue-50 border border-blue-100 px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-blue-600 mb-4">
+            <span className="inline-block rounded-full bg-blue-900/30 border border-blue-500/30 px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-blue-400 mb-4">
               Architecture
             </span>
-            <h2 className="text-4xl font-bold text-slate-900 mb-4">AI Agent Architecture</h2>
-            <p className="text-slate-500 mb-8 leading-relaxed">
+            <h2 className="text-4xl font-bold text-white mb-4">AI Agent Architecture</h2>
+            <p className="text-slate-400 mb-8 leading-relaxed">
               Our AI agents integrate language models, business logic, APIs, and knowledge bases to perform complex tasks reliably at scale.
             </p>
             <div className="space-y-3">
               {layers.map((layer, i) => (
                 <AnimatedSection key={layer.step} delay={i * 0.08}>
-                  <div className="flex items-start gap-4 rounded-xl border border-slate-200 bg-white p-4 shadow-sm hover:shadow-md hover:border-blue-200 transition-all duration-200">
+                  <div className="flex items-start gap-4 rounded-xl border border-white/10 bg-white/5 p-4 hover:bg-white/8 hover:border-white/20 transition-all duration-200">
                     <div className={`shrink-0 flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br ${layer.color} text-white font-bold text-sm`}>
                       {layer.step}
                     </div>
                     <div>
-                      <h3 className="font-semibold text-slate-900 text-sm">{layer.label}</h3>
-                      <p className="text-xs text-slate-500 mt-1 leading-relaxed">{layer.desc}</p>
+                      <h3 className="font-semibold text-white text-sm">{layer.label}</h3>
+                      <p className="text-xs text-slate-400 mt-1 leading-relaxed">{layer.desc}</p>
                     </div>
                   </div>
                 </AnimatedSection>

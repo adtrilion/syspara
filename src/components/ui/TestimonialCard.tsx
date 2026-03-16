@@ -18,7 +18,7 @@ export default function TestimonialCard({ quote, name, company, role }: Testimon
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.25 }}
       transition={{ duration: 0.5 }}
-      className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm hover:shadow-lg hover:shadow-blue-500/10 hover:-translate-y-1 transition-all duration-300"
+      className="rounded-2xl border border-white/10 bg-white/5 p-6 hover:bg-white/8 hover:border-white/20 hover:-translate-y-1 transition-all duration-300"
     >
       <div className="flex gap-1 mb-4">
         {Array.from({ length: 5 }).map((_, i) => (
@@ -27,13 +27,13 @@ export default function TestimonialCard({ quote, name, company, role }: Testimon
           </svg>
         ))}
       </div>
-      <p className="text-slate-600 italic leading-relaxed">"{quote}"</p>
+      <p className="text-slate-300 italic leading-relaxed">"{quote}"</p>
       <div className="mt-5 flex items-center gap-3">
         <div className="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-blue-600 to-purple-600 text-sm font-bold text-white">
           {initials}
         </div>
         <div>
-          <p className="font-semibold text-slate-900 text-sm">{name}</p>
+          <p className="font-semibold text-white text-sm">{name}</p>
           <p className="text-xs text-slate-500">{role}, {company}</p>
         </div>
       </div>

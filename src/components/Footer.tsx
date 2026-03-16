@@ -40,21 +40,27 @@ export default function Footer() {
             </p>
             <div className="mt-6 flex items-center gap-3">
               <Link
-                href="https://github.com/"
+                href="https://github.com/syspara"
+                target="_blank"
+                rel="noopener noreferrer"
                 aria-label="GitHub"
                 className="rounded-lg border border-slate-700 p-2 hover:border-slate-500 hover:text-white transition"
               >
                 <Github size={16} />
               </Link>
               <Link
-                href="https://www.linkedin.com/"
+                href="https://www.linkedin.com/company/syspara"
+                target="_blank"
+                rel="noopener noreferrer"
                 aria-label="LinkedIn"
                 className="rounded-lg border border-slate-700 p-2 hover:border-slate-500 hover:text-white transition"
               >
                 <Linkedin size={16} />
               </Link>
               <Link
-                href="https://twitter.com/"
+                href="https://twitter.com/syspara"
+                target="_blank"
+                rel="noopener noreferrer"
                 aria-label="Twitter"
                 className="rounded-lg border border-slate-700 p-2 hover:border-slate-500 hover:text-white transition"
               >
@@ -89,7 +95,11 @@ export default function Footer() {
 
         <div className="mt-12 border-t border-slate-800 pt-6 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-slate-600">
           <p>© {year} SysPara. All rights reserved.</p>
-          <p>contact@syspara.com · +971 544 31 8822</p>
+          <p>
+            <a href="mailto:contact@syspara.in" className="hover:text-slate-400 transition-colors">contact@syspara.in</a>
+            {' · '}
+            <a href="tel:+971544318822" className="hover:text-slate-400 transition-colors">+971 544 31 8822</a>
+          </p>
         </div>
       </div>
     </footer>

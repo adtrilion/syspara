@@ -14,32 +14,32 @@ const industries = [
 
 export default function Industries() {
   return (
-    <section className="py-24 bg-white">
+    <section className="py-24 bg-slate-900">
       <div className="max-w-6xl mx-auto px-4">
         <AnimatedSection className="text-center mb-14">
-          <span className="inline-block rounded-full bg-purple-50 border border-purple-100 px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-purple-600 mb-4">
+          <span className="inline-block rounded-full bg-purple-900/30 border border-purple-500/30 px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-purple-400 mb-4">
             Industries
           </span>
-          <h2 className="text-4xl font-bold text-slate-900">Industries We Serve</h2>
-          <p className="mt-4 text-slate-500 max-w-xl mx-auto">
+          <h2 className="text-4xl font-bold text-white">Industries We Serve</h2>
+          <p className="mt-4 text-slate-400 max-w-xl mx-auto">
             Sector-specific AI solutions built for the unique challenges of your industry.
           </p>
         </AnimatedSection>
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {industries.map((ind, i) => (
             <AnimatedSection key={ind.name} delay={i * 0.07}>
-              <div className="group overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm hover:shadow-xl hover:shadow-blue-500/10 hover:border-blue-200 hover:-translate-y-1 transition-all duration-300">
+              <div className="group overflow-hidden rounded-2xl border border-white/10 bg-white/5 hover:bg-white/8 hover:border-white/20 hover:-translate-y-1 transition-all duration-300">
                 <div className="relative h-36 overflow-hidden">
                   <Image src={ind.image} alt={ind.name} fill className="object-cover group-hover:scale-105 transition-transform duration-500" sizes="(max-width: 768px) 100vw, 33vw" />
                   <div className="absolute inset-0 bg-gradient-to-t from-slate-900/70 to-transparent" />
                   <h3 className="absolute bottom-3 left-4 text-lg font-bold text-white">{ind.name}</h3>
                 </div>
                 <div className="p-5">
-                  <p className="text-sm text-slate-500 mb-4 leading-relaxed">{ind.desc}</p>
+                  <p className="text-sm text-slate-400 mb-4 leading-relaxed">{ind.desc}</p>
                   <ul className="space-y-1.5">
                     {ind.solutions.map((s) => (
-                      <li key={s} className="flex items-center gap-2 text-xs text-slate-600">
-                        <span className="h-1.5 w-1.5 rounded-full bg-blue-600 shrink-0" />
+                      <li key={s} className="flex items-center gap-2 text-xs text-slate-500">
+                        <span className="h-1.5 w-1.5 rounded-full bg-blue-500 shrink-0" />
                         {s}
                       </li>
                     ))}

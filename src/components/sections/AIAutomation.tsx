@@ -11,28 +11,24 @@ const items = [
 
 export default function AIAutomation() {
   return (
-    <section className="py-24 bg-slate-50">
+    <section className="py-24 bg-slate-950">
       <div className="max-w-6xl mx-auto px-4">
         <div className="grid md:grid-cols-2 gap-12 items-center">
           <AnimatedSection>
-            <span className="inline-block rounded-full bg-purple-50 border border-purple-100 px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-purple-600 mb-4">
+            <span className="inline-block rounded-full bg-purple-900/30 border border-purple-500/30 px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-purple-400 mb-4">
               Automation
             </span>
-            <h2 className="text-4xl font-bold text-slate-900 mb-4">
-              Intelligent Automation
-            </h2>
-            <p className="text-slate-500 mb-8 leading-relaxed">
+            <h2 className="text-4xl font-bold text-white mb-4">Intelligent Automation</h2>
+            <p className="text-slate-400 mb-8 leading-relaxed">
               Automate repetitive tasks and complex workflows using AI-driven systems that reduce operational costs and increase efficiency.
             </p>
             <div className="space-y-4">
               {items.map((item) => (
-                <div key={item.title} className="flex items-start gap-4 rounded-xl border border-slate-200 bg-white p-4 shadow-sm hover:shadow-md hover:border-purple-200 transition-all duration-200">
-                  <div className="shrink-0 rounded-lg bg-gradient-to-br from-purple-500 to-purple-700 p-2 text-white">
-                    {item.icon}
-                  </div>
+                <div key={item.title} className="flex items-start gap-4 rounded-xl border border-white/10 bg-white/5 p-4 hover:bg-white/8 hover:border-purple-500/30 transition-all duration-200">
+                  <div className="shrink-0 rounded-lg bg-gradient-to-br from-purple-500 to-purple-700 p-2 text-white">{item.icon}</div>
                   <div>
-                    <h3 className="font-semibold text-slate-900 text-sm">{item.title}</h3>
-                    <p className="text-xs text-slate-500 mt-1 leading-relaxed">{item.desc}</p>
+                    <h3 className="font-semibold text-white text-sm">{item.title}</h3>
+                    <p className="text-xs text-slate-400 mt-1 leading-relaxed">{item.desc}</p>
                   </div>
                 </div>
               ))}

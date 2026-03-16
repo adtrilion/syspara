@@ -12,26 +12,26 @@ const benefits = [
 
 export default function AIAgentBenefits() {
   return (
-    <section className="py-24 bg-white">
+    <section className="py-24 bg-slate-950">
       <div className="max-w-6xl mx-auto px-4">
         <AnimatedSection className="text-center mb-14">
-          <span className="inline-block rounded-full bg-emerald-50 border border-emerald-100 px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-emerald-600 mb-4">
+          <span className="inline-block rounded-full bg-emerald-900/30 border border-emerald-500/30 px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-emerald-400 mb-4">
             Benefits
           </span>
-          <h2 className="text-4xl font-bold text-slate-900">Benefits of AI Agents</h2>
-          <p className="mt-4 text-slate-500 max-w-xl mx-auto">
+          <h2 className="text-4xl font-bold text-white">Benefits of AI Agents</h2>
+          <p className="mt-4 text-slate-400 max-w-xl mx-auto">
             Measurable advantages that compound over time as your agents learn and scale.
           </p>
         </AnimatedSection>
         <div className="grid md:grid-cols-3 gap-6">
           {benefits.map((b, i) => (
             <AnimatedSection key={b.title} delay={i * 0.08}>
-              <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm hover:shadow-xl hover:shadow-blue-500/10 hover:border-blue-200 hover:-translate-y-1 transition-all duration-300">
+              <div className="rounded-2xl border border-white/10 bg-white/5 p-6 hover:bg-white/8 hover:border-white/20 hover:-translate-y-1 transition-all duration-300">
                 <div className={`mb-4 inline-flex rounded-xl bg-gradient-to-br ${b.color} p-3 text-white`}>
                   {b.icon}
                 </div>
-                <h3 className="font-semibold text-slate-900 mb-2">{b.title}</h3>
-                <p className="text-sm text-slate-500 leading-relaxed">{b.desc}</p>
+                <h3 className="font-semibold text-white mb-2">{b.title}</h3>
+                <p className="text-sm text-slate-400 leading-relaxed">{b.desc}</p>
               </div>
             </AnimatedSection>
           ))}

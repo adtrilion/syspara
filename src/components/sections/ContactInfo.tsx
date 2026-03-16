@@ -9,17 +9,17 @@ const info = [
 
 export default function ContactInfo() {
   return (
-    <section className="py-16 bg-white">
+    <section className="py-16 bg-slate-900">
       <div className="max-w-6xl mx-auto px-4">
         <div className="grid md:grid-cols-3 gap-6 text-center">
           {info.map((item, i) => (
             <AnimatedSection key={item.label} delay={i * 0.1}>
-              <div className="rounded-2xl border border-slate-200 bg-white p-8 shadow-sm hover:shadow-lg hover:shadow-blue-500/10 hover:-translate-y-1 transition-all duration-300">
+              <div className="rounded-2xl border border-white/10 bg-white/5 p-8 hover:bg-white/8 hover:border-white/20 hover:-translate-y-1 transition-all duration-300">
                 <div className={`mx-auto mb-4 inline-flex rounded-xl bg-gradient-to-br ${item.color} p-3 text-white`}>
                   {item.icon}
                 </div>
-                <h3 className="font-semibold text-slate-900 mb-2">{item.label}</h3>
-                <p className="text-slate-500 text-sm">{item.value}</p>
+                <h3 className="font-semibold text-white mb-2">{item.label}</h3>
+                <p className="text-slate-400 text-sm">{item.value}</p>
               </div>
             </AnimatedSection>
           ))}

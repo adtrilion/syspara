@@ -42,14 +42,14 @@ const projects = [
 
 export default function PortfolioGrid() {
   return (
-    <section className="py-24 bg-white">
+    <section className="py-24 bg-slate-900">
       <div className="max-w-6xl mx-auto px-4">
         <AnimatedSection className="text-center mb-14">
-          <span className="inline-block rounded-full bg-blue-50 border border-blue-100 px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-blue-600 mb-4">
+          <span className="inline-block rounded-full bg-blue-900/30 border border-blue-500/30 px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-blue-400 mb-4">
             Our Work
           </span>
-          <h2 className="text-4xl font-bold text-slate-900">Featured Projects</h2>
-          <p className="mt-4 text-slate-500 max-w-xl mx-auto">
+          <h2 className="text-4xl font-bold text-white">Featured Projects</h2>
+          <p className="mt-4 text-slate-400 max-w-xl mx-auto">
             A selection of solutions we've shipped for businesses across industries.
           </p>
         </AnimatedSection>

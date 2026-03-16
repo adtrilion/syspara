@@ -12,26 +12,26 @@ const types = [
 
 export default function AIAgentTypes() {
   return (
-    <section className="py-24 bg-slate-50">
+    <section className="py-24 bg-slate-900">
       <div className="max-w-6xl mx-auto px-4">
         <AnimatedSection className="text-center mb-14">
-          <span className="inline-block rounded-full bg-blue-50 border border-blue-100 px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-blue-600 mb-4">
+          <span className="inline-block rounded-full bg-blue-900/30 border border-blue-500/30 px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-blue-400 mb-4">
             Agent Types
           </span>
-          <h2 className="text-4xl font-bold text-slate-900">Types of AI Agents We Build</h2>
-          <p className="mt-4 text-slate-500 max-w-xl mx-auto">
+          <h2 className="text-4xl font-bold text-white">Types of AI Agents We Build</h2>
+          <p className="mt-4 text-slate-400 max-w-xl mx-auto">
             Purpose-built agents for every business function — from sales to compliance.
           </p>
         </AnimatedSection>
         <div className="grid md:grid-cols-3 gap-6">
           {types.map((type, i) => (
             <AnimatedSection key={type.title} delay={i * 0.08}>
-              <div className="group rounded-2xl border border-slate-200 bg-white p-6 shadow-sm hover:shadow-xl hover:shadow-blue-500/10 hover:border-blue-200 hover:-translate-y-1 transition-all duration-300">
+              <div className="group rounded-2xl border border-white/10 bg-white/5 p-6 hover:bg-white/8 hover:border-white/20 hover:-translate-y-1 transition-all duration-300">
                 <div className={`mb-4 inline-flex rounded-xl bg-gradient-to-br ${type.color} p-3 text-white`}>
                   {type.icon}
                 </div>
-                <h3 className="font-semibold text-slate-900 mb-2">{type.title}</h3>
-                <p className="text-sm text-slate-500 leading-relaxed">{type.desc}</p>
+                <h3 className="font-semibold text-white mb-2">{type.title}</h3>
+                <p className="text-sm text-slate-400 leading-relaxed">{type.desc}</p>
               </div>
             </AnimatedSection>
           ))}

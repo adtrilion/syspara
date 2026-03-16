@@ -12,27 +12,25 @@ const useCases = [
 
 export default function AIAgentUseCases() {
   return (
-    <section className="py-24 bg-slate-50">
+    <section className="py-24 bg-slate-900">
       <div className="max-w-6xl mx-auto px-4">
         <AnimatedSection className="text-center mb-14">
-          <span className="inline-block rounded-full bg-purple-50 border border-purple-100 px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-purple-600 mb-4">
+          <span className="inline-block rounded-full bg-purple-900/30 border border-purple-500/30 px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-purple-400 mb-4">
             Use Cases
           </span>
-          <h2 className="text-4xl font-bold text-slate-900">Business Use Cases</h2>
-          <p className="mt-4 text-slate-500 max-w-xl mx-auto">
+          <h2 className="text-4xl font-bold text-white">Business Use Cases</h2>
+          <p className="mt-4 text-slate-400 max-w-xl mx-auto">
             Real-world applications of AI agents delivering measurable ROI across industries.
           </p>
         </AnimatedSection>
         <div className="grid md:grid-cols-2 gap-6">
           {useCases.map((item, i) => (
             <AnimatedSection key={item.title} delay={i * 0.08}>
-              <div className="flex items-start gap-4 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm hover:shadow-xl hover:shadow-blue-500/10 hover:border-blue-200 hover:-translate-y-1 transition-all duration-300">
-                <div className={`shrink-0 rounded-xl bg-gradient-to-br ${item.color} p-3 text-white`}>
-                  {item.icon}
-                </div>
+              <div className="flex items-start gap-4 rounded-2xl border border-white/10 bg-white/5 p-6 hover:bg-white/8 hover:border-white/20 hover:-translate-y-1 transition-all duration-300">
+                <div className={`shrink-0 rounded-xl bg-gradient-to-br ${item.color} p-3 text-white`}>{item.icon}</div>
                 <div>
-                  <h3 className="font-semibold text-slate-900 mb-2">{item.title}</h3>
-                  <p className="text-sm text-slate-500 leading-relaxed">{item.desc}</p>
+                  <h3 className="font-semibold text-white mb-2">{item.title}</h3>
+                  <p className="text-sm text-slate-400 leading-relaxed">{item.desc}</p>
                 </div>
               </div>
             </AnimatedSection>
