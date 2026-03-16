@@ -28,7 +28,9 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: 'GROQ_API_KEY not configured' }, { status: 500 });
   }
 
-  const response = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+  let response: Response;
+  try {
+    response = await fetch('https://api.groq.com/openai/v1/chat/completions', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -44,6 +46,10 @@ export async function POST(req: NextRequest) {
       temperature: 0.5,
     }),
   });
+  } catch (e) {
+    console.error('Groq fetch failed:', e);
+    return NextResponse.json({ error: 'Network error reaching Groq' }, { status: 502 });
+  }
 
   if (!response.ok) {
     const err = await response.text();
