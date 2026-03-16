@@ -14,7 +14,7 @@ export async function POST(req: NextRequest) {
     await resend.emails.send({
       from: 'SysPara Website <no-reply@syspara.in>',
       to: 'ashuja7@gmail.com',
-      reply_to: email,
+      replyTo: email,
       subject: subject || `Enquiry from ${name}`,
       text: `Name: ${name}\nEmail: ${email}\n\n${message}`,
     });
