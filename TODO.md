@@ -1,152 +1,131 @@
-# SysPara AI System — Master TODO List
+# SysPara — Master TODO & Roadmap
 
 ---
 
-## Technical Audit ✅ COMPLETE (June 2025)
-> Full codebase audit — all issues fixed
-
-### Fixed
-- [x] AIPlayground.tsx — historyRef bug — replaced with buildHistory() from messages state
-- [x] AIPlayground.tsx — doubled system prompt — /api/chat now accepts optional `systemPrompt` from client
-- [x] AIPlayground.tsx — nextId() stale closure — replaced with useRef
-- [x] /api/chat — no input validation — added message count limit + missing field check + rate limiting (30 req/min)
-- [x] /api/estimator — no input validation — added required field check + rate limiting (3 req/min)
-- [x] /api/leads — rate limiting added (5 req/min)
-- [x] /api/contact — rate limiting added (5 req/min)
-- [x] Navbar.tsx — duplicate Industries link removed from AI dropdown
-- [x] Navbar.tsx — duplicate About link removed from AI dropdown
-- [x] og-image — dynamic /api/og route built with Next.js ImageResponse (edge runtime)
-- [x] Lead storage — Supabase leads table, all leads saved from /api/leads and /api/estimator
-
-### Pending (manual)
-- [ ] Add SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY to Vercel environment variables
+## Stack
+- **Framework:** Next.js 16 App Router + TypeScript (strict)
+- **Styling:** Tailwind CSS v4 + Framer Motion
+- **AI:** Groq — llama3-70b-8192
+- **Database:** Supabase (leads + conversations)
+- **Email:** Resend
+- **Hosting:** Vercel (Hobby — daily cron)
+- **Analytics:** GA4 (G-MG0BEJBZB9)
 
 ---
 
-## Phase 1 — Fix Current Chatbot ✅ COMPLETE
-> Goal: turn the current bot into a useful AI assistant
+## Feature Status
 
-### Backend
-- [x] Create `/api/chat` AI endpoint
-- [x] Connect chatbot to Groq API (llama3-70b-8192 — free tier)
-- [x] Add system prompt describing SysPara services
-- [x] Add conversation memory via buildHistory() — last 10 messages
-- [x] Improve response tone (human consultant style — Agent SysPara persona)
-
-### Frontend
-- [x] Upgrade LeadBot.tsx → Agent SysPara
-- [x] Chat history UI
-- [x] Loading / typing indicator
-- [x] Mobile-friendly chat window
-
----
-
-## Phase 2 — Website Knowledge AI (RAG) ✅ COMPLETE
-> Goal: chatbot understands entire website
-
-- [x] Consolidated site pages + blog into siteKnowledge.ts
-- [x] Full-context injection as system prompt (no vector DB needed at current size)
-- [x] Blog Q&A pairs added to all 6 posts
+| Feature | Status |
+|---|---|
+| Agent SysPara (AI chatbot) | ✅ Live |
+| Lead capture (name → email → phone) | ✅ Live |
+| Lead storage — Supabase | ✅ Live |
+| Lead scoring (AI 1–10) | ✅ Live |
+| Conversation logging — Supabase | ✅ Live |
+| AI Project Estimator | ✅ Live |
+| AI Demo Playground | ✅ Live |
+| AI follow-up emails (daily cron) | ✅ Live |
+| Admin dashboard — /admin | ✅ Live |
+| Email alerts — Resend | ✅ Live |
+| Rate limiting (all API routes) | ✅ Live |
+| Dynamic OG images — /api/og | ✅ Live |
+| GA4 analytics | ✅ Live |
+| Blog (6 posts + audio player) | ✅ Live |
+| WhatsApp alerts | ⏳ Needs WHATSAPP_TOKEN + WHATSAPP_PHONE_ID in Vercel |
 
 ---
 
-## Phase 3 — Lead Capture Intelligence ✅ COMPLETE
-> Goal: turn chatbot into sales assistant
+## API Routes
 
-- [x] High-intent pattern detection (pricing, project requests, consultation interest)
-- [x] Lead flow: name → email → phone
-- [x] Fallback lead capture after 4 exchanges
-- [x] Email notification on every lead (via Resend)
-- [ ] WhatsApp alert — code ready, needs WHATSAPP_TOKEN + WHATSAPP_PHONE_ID in Vercel env
-
----
-
-## Phase 4 — AI Demo Upgrade ✅ COMPLETE
-> Goal: improve /demo into a stronger sales page
-
-- [x] Industry tabs (E-commerce, Healthcare, Finance, Operations)
-- [x] Real Groq AI responses
-- [x] 4-step How It Works section
-- [x] Dual CTA — Estimator + Book Consultation
+| Route | Method | Purpose |
+|---|---|---|
+| /api/chat | POST | Groq chat — chatbot + playground |
+| /api/leads | POST | Lead capture — Supabase + score + email |
+| /api/estimator | POST | AI estimate — Groq + lead save |
+| /api/contact | POST | Contact form email |
+| /api/conversations | POST | Log chatbot sessions |
+| /api/followup | GET | Cron — AI follow-up emails |
+| /api/admin | GET | Admin data — leads + conversations |
+| /api/og | GET | Dynamic OG image (edge) |
 
 ---
 
-## Phase 5 — AI Project Estimator ✅ COMPLETE
-> Goal: high-quality lead generator tool
+## Environment Variables
 
-- [x] 5-step single-click question flow
-- [x] Groq 70B generates scope, cost, timeline, highlights
-- [x] Contact capture + email alert
-- [x] Added to Navbar (AI dropdown + mobile)
-- [x] Live at syspara.in/estimator
-
----
-
-## Phase 6 — Voice AI (Optional)
-> Stack: Whisper (speech-to-text) + ElevenLabs (text-to-speech)
-
-- [x] Blog audio player (Web Speech API — read-aloud on blog posts)
-- [ ] Voice input in chatbot (Whisper API)
-- [ ] Voice response from chatbot (ElevenLabs API)
+| Variable | Status |
+|---|---|
+| RESEND_API_KEY | ✅ |
+| GROQ_API_KEY | ✅ |
+| SUPABASE_URL | ✅ |
+| SUPABASE_SERVICE_ROLE_KEY | ✅ |
+| CRON_SECRET | ✅ |
+| ADMIN_SECRET | ✅ |
+| NEXT_PUBLIC_SITE_URL | ✅ |
+| WHATSAPP_TOKEN | ⏳ Pending |
+| WHATSAPP_PHONE_ID | ⏳ Pending |
 
 ---
 
-## Phase 7 — High Value Lead Alerts
-> Instant notifications when strong buying signals detected
+## Supabase Schema
 
-- [x] High-intent detection logic
-- [x] Email alert on every lead capture
-- [ ] WhatsApp alert — code ready, needs env vars in Vercel
-- [ ] Slack alert
+```sql
+-- leads
+id, created_at, name, email, phone, company, service,
+message, source, score, followed_up_at
 
----
-
-## Phase 8 — Analytics
-> Track chatbot and site performance
-
-- [ ] Conversation count logging
-- [ ] Leads captured tracking
-- [ ] Common questions analysis
-- [ ] Conversion rate tracking
-- [ ] Google Analytics / GA4 integration
-- [ ] Custom database logging (Supabase or PlanetScale)
-
----
-
-## Phase 9 — AI Sales Automation
-> Close the loop — AI follows up with leads automatically
-
-- [ ] AI follow-up email sequence to captured leads (via Resend + cron)
-- [ ] Auto-schedule meeting link in follow-up (Calendly integration)
-- [ ] Lead scoring — rank leads by intent signals
-- [ ] Prospect qualification pipeline dashboard
-
----
-
-## Final System Vision
-
-```
-Visitor
-  ↓
-Agent SysPara (AI Chatbot)       ✅ Live — Groq 70B, buildHistory() fix
-  ↓
-Website Knowledge (RAG)          ✅ Live — full-context injection
-  ↓
-AI Demo Playground               ✅ Live — real AI, industry tabs, fixed
-  ↓
-AI Project Estimator             ✅ Live — 5-step, lead capture, email alert
-  ↓
-Lead Qualification               ✅ Live — high-intent detection
-  ↓
-Contact Capture                  ✅ Live — name, email, phone
-  ↓
-You get notified                 ✅ Live (email) / ⏳ WhatsApp needs env vars
-  ↓
-AI Follow-up Emails              ⏳ Phase 9
-  ↓
-Meeting Booked                   ⏳ Phase 9
+-- conversations
+id, created_at, session_id, messages (jsonb), lead_captured,
+lead_email, message_count, last_message_at
 ```
 
 ---
 
-_Last updated: All high priority tasks complete (June 2025) — pushed as faf471f_
+## Sales Funnel
+
+```
+Visitor lands on syspara.in
+  ↓ Agent SysPara opens (chatbot)           ✅
+  ↓ AI answers questions (Groq 70B)         ✅
+  ↓ High-intent detected → lead capture     ✅
+  ↓ Lead scored 1–10 by AI                  ✅
+  ↓ Saved to Supabase                       ✅
+  ↓ Email alert (Resend)                    ✅
+  ↓ WhatsApp alert                          ⏳ needs env vars
+  ↓ AI follow-up email (next day, 9am UTC)  ✅
+  ↓ Review in admin dashboard               ✅ syspara.in/admin
+  ↓ Close the deal                          🤝
+```
+
+---
+
+## Immediate
+
+- [ ] Activate WhatsApp alerts — add WHATSAPP_TOKEN + WHATSAPP_PHONE_ID to Vercel
+- [ ] Submit sitemap to Google Search Console
+
+## Short Term
+
+- [ ] Slack alert for leads scored 8+
+- [ ] Add JSON-LD structured data to blog posts
+- [ ] Add meta descriptions to services, portfolio, ai-agents, ai-solutions pages
+- [ ] Replace placeholder portfolio projects with real case studies
+- [ ] Add 10+ more blog posts (target 20+)
+
+## Medium Term
+
+- [ ] Admin: full conversation transcript view, filter by score/date, CSV export
+- [ ] Calendly booking link in follow-up emails + /contact page
+- [ ] CMS migration — Sanity or Contentful for blog
+- [ ] Voice input/output in chatbot (Whisper + ElevenLabs)
+
+## Longer Term
+
+- [ ] Arabic language version + RTL layout
+- [ ] CRM integration (HubSpot or Zoho)
+- [ ] Lead source attribution + A/B testing framework
+- [ ] Automated proposal generation from estimator results
+- [ ] Multi-tenant admin + lead assignment
+
+---
+
+_Last updated: Redeployed clean on Vercel (commit 9eae9b9) — all features live_
