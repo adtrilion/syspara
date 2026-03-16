@@ -1,79 +1,93 @@
 'use client';
 
-import { useState, useRef, useEffect, useCallback } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Send, RotateCcw, Bot, User, ChevronDown, Sparkles, Zap, Brain } from 'lucide-react';
+import { Send, RotateCcw, Bot, User, ChevronDown, Sparkles, Zap, Brain, ShoppingCart, HeartPulse, BarChart3, Building2 } from 'lucide-react';
+import Link from 'next/link';
 
 type Message = { role: 'user' | 'assistant'; text: string; id: number };
-
-type Model = { id: string; label: string; badge: string; color: string };
+type Model = { id: string; label: string; badge: string; systemPrompt: string };
 
 const MODELS: Model[] = [
-  { id: 'syspara-agent', label: 'SysPara Agent', badge: 'Business AI', color: 'text-blue-400' },
-  { id: 'automation-bot', label: 'Automation Bot', badge: 'Workflows', color: 'text-purple-400' },
-  { id: 'analytics-ai', label: 'Analytics AI', badge: 'Data & Insights', color: 'text-cyan-400' },
+  {
+    id: 'syspara-agent',
+    label: 'SysPara Agent',
+    badge: 'Business AI',
+    systemPrompt: 'You are SysPara\'s AI business consultant. Help users understand how AI can transform their business. Be concise, specific, and always relate answers back to real business outcomes. Keep responses under 200 words.',
+  },
+  {
+    id: 'automation-bot',
+    label: 'Automation Bot',
+    badge: 'Workflows',
+    systemPrompt: 'You are an automation specialist at SysPara. Identify workflow inefficiencies and suggest specific AI-powered automation solutions. Be practical and give concrete examples. Keep responses under 200 words.',
+  },
+  {
+    id: 'analytics-ai',
+    label: 'Analytics AI',
+    badge: 'Data & Insights',
+    systemPrompt: 'You are a data analytics AI at SysPara. Help businesses extract insights and make data-driven decisions. Give specific, actionable analytics recommendations. Keep responses under 200 words.',
+  },
 ];
 
-const SYSTEM_PROMPTS: Record<string, string> = {
-  'syspara-agent': 'You are SysPara\'s AI business consultant. Help users understand how AI can transform their business.',
-  'automation-bot': 'You are an automation specialist. Identify workflow inefficiencies and suggest AI-powered solutions.',
-  'analytics-ai': 'You are a data analytics AI. Help businesses extract insights and make data-driven decisions.',
-};
+const USE_CASES = [
+  {
+    icon: <ShoppingCart size={18} />,
+    label: 'E-commerce',
+    color: 'text-blue-400',
+    border: 'border-blue-500/30',
+    bg: 'bg-blue-500/10',
+    prompts: [
+      'How can AI increase my e-commerce conversion rate?',
+      'Can AI predict which products will sell out next month?',
+      'How do I automate customer support for my online store?',
+    ],
+  },
+  {
+    icon: <HeartPulse size={18} />,
+    label: 'Healthcare',
+    color: 'text-purple-400',
+    border: 'border-purple-500/30',
+    bg: 'bg-purple-500/10',
+    prompts: [
+      'How can AI reduce patient no-shows at my clinic?',
+      'Can AI automate appointment scheduling and reminders?',
+      'How do I use AI to speed up patient intake forms?',
+    ],
+  },
+  {
+    icon: <BarChart3 size={18} />,
+    label: 'Finance',
+    color: 'text-cyan-400',
+    border: 'border-cyan-500/30',
+    bg: 'bg-cyan-500/10',
+    prompts: [
+      'How can AI detect fraudulent transactions in real time?',
+      'Can AI automate my monthly financial reporting?',
+      'How do I use predictive analytics for cash flow forecasting?',
+    ],
+  },
+  {
+    icon: <Building2 size={18} />,
+    label: 'Operations',
+    color: 'text-amber-400',
+    border: 'border-amber-500/30',
+    bg: 'bg-amber-500/10',
+    prompts: [
+      'Which of my business processes should I automate first?',
+      'How can AI reduce manual data entry in my team?',
+      'What is the ROI of deploying an AI agent for my business?',
+    ],
+  },
+];
 
-const RESPONSES: Record<string, string[]> = {
-  'syspara-agent': [
-    `Great question! Here's how SysPara approaches this:\n\n**1. Discovery & Assessment**\nWe start by mapping your current workflows to identify high-impact automation opportunities.\n\n**2. Custom AI Design**\nOur team builds AI agents tailored to your specific business logic — not generic off-the-shelf tools.\n\n**3. Integration & Deployment**\nWe integrate directly with your CRM, ERP, and communication platforms for seamless operation.\n\n**4. Measurable Outcomes**\nClients typically see 40–70% reduction in manual workload within the first 90 days.\n\nWould you like to explore a specific use case for your industry?`,
-    `Excellent! AI agents are transforming business operations in several key ways:\n\n→ **Customer Support** — Resolving 70%+ of inquiries without human intervention\n→ **Sales Automation** — Lead scoring, outreach, and follow-up on autopilot\n→ **Document Processing** — Extracting and routing data from invoices and contracts\n→ **Compliance Monitoring** — Real-time regulatory checks across all transactions\n\nSysPara has deployed agents across Healthcare, Finance, E-commerce, and Logistics sectors. Each agent is built to your exact specifications and integrates with your existing stack.\n\nReady to see what's possible for your business?`,
-    `Here's a realistic breakdown of AI ROI for modern businesses:\n\n**Cost Reduction**\n• Operations: 30–60% reduction in manual processing costs\n• Support: 50–80% decrease in ticket resolution time\n• HR: 40% faster onboarding and document handling\n\n**Revenue Impact**\n• Personalization engines drive 15–25% higher conversion\n• Predictive analytics reduce churn by up to 35%\n• Faster response times increase customer satisfaction scores\n\nThe average SysPara client achieves full ROI within 6 months of deployment. Want to discuss what this could look like for your specific situation?`,
-  ],
-  'automation-bot': [
-    `I've analyzed common workflow patterns and identified these high-impact automation opportunities:\n\n**Immediate Wins (Week 1–2)**\n✓ Email triage and auto-routing\n✓ Invoice data extraction and approval workflows\n✓ Meeting scheduling and calendar management\n\n**Medium-Term (Month 1–3)**\n✓ Customer onboarding automation\n✓ Inventory reorder triggers\n✓ Report generation and distribution\n\n**Strategic (Month 3–6)**\n✓ Predictive maintenance alerts\n✓ Dynamic pricing models\n✓ Cross-system data synchronization\n\nEach automation typically saves 5–20 hours per week per department. Which area would you like to prioritize?`,
-    `Here's a workflow automation blueprint for your business:\n\n**Current State Analysis**\nMost businesses waste 30–40% of employee time on repetitive, rule-based tasks that AI can handle instantly.\n\n**Recommended Automation Stack**\n→ RPA layer for UI-based task automation\n→ AI layer for judgment-based decisions\n→ Integration layer connecting all your tools\n→ Monitoring layer for performance tracking\n\n**Expected Outcomes**\n• 60% reduction in processing time\n• 95%+ accuracy on data entry tasks\n• 24/7 operation without additional headcount\n\nSysPara builds end-to-end automation systems that scale with your business. Shall we map out your specific workflow?`,
-  ],
-  'analytics-ai': [
-    `Based on industry benchmarks, here are the analytics capabilities that drive the most business value:\n\n**Predictive Models**\n📊 Customer churn prediction — identify at-risk accounts 30 days in advance\n📊 Demand forecasting — reduce inventory costs by 20–35%\n📊 Lead scoring — focus sales effort on highest-probability deals\n\n**Real-Time Dashboards**\n📊 Live revenue and conversion tracking\n📊 Operational KPI monitoring with anomaly alerts\n📊 Customer behavior analytics and segmentation\n\n**Data Infrastructure**\nWe build the data pipelines, warehouses, and ML models that power these insights — all integrated into your existing BI tools.\n\nWhat data do you currently have that we could turn into actionable intelligence?`,
-    `Here's how predictive analytics creates competitive advantage:\n\n**The Data Flywheel**\nMore data → Better models → Better decisions → More revenue → More data\n\n**Key Use Cases by Industry**\n• **Retail**: Predict which products will trend 2–4 weeks ahead\n• **Finance**: Flag fraudulent transactions with 99.2% accuracy\n• **Healthcare**: Identify high-risk patients before complications arise\n• **SaaS**: Predict churn 45 days before cancellation\n\n**SysPara's Analytics Stack**\nWe use a combination of classical ML, deep learning, and LLM-powered analysis to deliver insights that are both accurate and explainable.\n\nReady to turn your data into a strategic asset?`,
-  ],
-};
-
-const PROMPTS = [
+const GENERAL_PROMPTS = [
   'How can AI reduce my operational costs?',
   'What workflows can be automated with AI?',
   'How do AI agents work in practice?',
   'What ROI can I expect from AI adoption?',
   'How does SysPara integrate with existing systems?',
-  'Which industries benefit most from AI agents?',
   'How long does AI implementation take?',
-  'What data do I need to get started with AI?',
 ];
-
-function useTypewriter(text: string, speed = 18) {
-  const [displayed, setDisplayed] = useState('');
-  const [done, setDone] = useState(false);
-
-  useEffect(() => {
-    setDisplayed('');
-    setDone(false);
-    if (!text) return;
-    let i = 0;
-    const interval = setInterval(() => {
-      i++;
-      setDisplayed(text.slice(0, i));
-      if (i >= text.length) {
-        clearInterval(interval);
-        setDone(true);
-      }
-    }, speed);
-    return () => clearInterval(interval);
-  }, [text, speed]);
-
-  return { displayed, done };
-}
-
-function StreamingMessage({ text }: { text: string }) {
-  const { displayed } = useTypewriter(text, 12);
-  return <MessageText text={displayed} />;
-}
 
 function MessageText({ text }: { text: string }) {
   const lines = text.split('\n');
@@ -95,67 +109,123 @@ function MessageText({ text }: { text: string }) {
 export default function AIPlayground() {
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState('');
-  const [streaming, setStreaming] = useState(false);
-  const [streamingText, setStreamingText] = useState('');
+  const [loading, setLoading] = useState(false);
   const [selectedModel, setSelectedModel] = useState(MODELS[0]);
   const [modelOpen, setModelOpen] = useState(false);
+  const [activeUseCase, setActiveUseCase] = useState(0);
   const [idCounter, setIdCounter] = useState(0);
   const bottomRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+  const historyRef = useRef<{ role: 'user' | 'assistant'; content: string }[]>([]);
 
-  const nextId = useCallback(() => {
-    setIdCounter((c) => c + 1);
-    return idCounter + 1;
-  }, [idCounter]);
+  function nextId() {
+    const id = idCounter + 1;
+    setIdCounter(id);
+    return id;
+  }
 
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: 'smooth' });
-  }, [messages, streamingText]);
-
-  function getResponse(model: Model): string {
-    const pool = RESPONSES[model.id] ?? RESPONSES['syspara-agent'];
-    return pool[Math.floor(Math.random() * pool.length)];
-  }
+  }, [messages, loading]);
 
   async function sendMessage(text: string) {
-    if (!text.trim() || streaming) return;
+    if (!text.trim() || loading) return;
     const userMsg: Message = { role: 'user', text: text.trim(), id: nextId() };
     setMessages((prev) => [...prev, userMsg]);
     setInput('');
-    setStreaming(true);
+    setLoading(true);
 
-    const response = getResponse(selectedModel);
-    setStreamingText(response);
+    historyRef.current.push({ role: 'user', content: text.trim() });
 
-    // simulate streaming delay based on response length
-    await new Promise((r) => setTimeout(r, response.length * 12 + 400));
-
-    setMessages((prev) => [...prev, { role: 'assistant', text: response, id: nextId() }]);
-    setStreamingText('');
-    setStreaming(false);
-    setTimeout(() => inputRef.current?.focus(), 100);
+    try {
+      const res = await fetch('/api/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          messages: [
+            { role: 'system', content: selectedModel.systemPrompt },
+            ...historyRef.current.slice(-8),
+          ],
+        }),
+      });
+      const data = await res.json();
+      const reply = data.reply ?? 'Sorry, I had trouble responding. Please try again.';
+      historyRef.current.push({ role: 'assistant', content: reply });
+      setMessages((prev) => [...prev, { role: 'assistant', text: reply, id: nextId() }]);
+    } catch {
+      setMessages((prev) => [...prev, { role: 'assistant', text: 'Something went wrong. Please try again.', id: nextId() }]);
+    } finally {
+      setLoading(false);
+      setTimeout(() => inputRef.current?.focus(), 100);
+    }
   }
 
   function reset() {
     setMessages([]);
-    setStreamingText('');
-    setStreaming(false);
+    setLoading(false);
     setInput('');
+    historyRef.current = [];
     setTimeout(() => inputRef.current?.focus(), 100);
   }
 
   const model = selectedModel;
+  const useCase = USE_CASES[activeUseCase];
 
   return (
     <section className="py-16 bg-slate-950">
       <div className="max-w-6xl mx-auto px-4">
-        <div className="grid lg:grid-cols-[280px_1fr] gap-6 items-start">
 
-          {/* Left panel — config */}
+        {/* Use case tabs */}
+        <div className="mb-8">
+          <p className="text-xs font-semibold uppercase tracking-widest text-slate-500 mb-4 text-center">Try it for your industry</p>
+          <div className="flex flex-wrap justify-center gap-3">
+            {USE_CASES.map((uc, i) => (
+              <button
+                key={uc.label}
+                onClick={() => setActiveUseCase(i)}
+                className={`flex items-center gap-2 rounded-full border px-4 py-2 text-sm font-medium transition-all duration-200 ${
+                  activeUseCase === i
+                    ? `${uc.border} ${uc.bg} ${uc.color}`
+                    : 'border-white/10 text-slate-400 hover:border-white/20 hover:text-white'
+                }`}
+              >
+                <span className={activeUseCase === i ? uc.color : 'text-slate-500'}>{uc.icon}</span>
+                {uc.label}
+              </button>
+            ))}
+          </div>
+
+          {/* Use case prompts */}
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={activeUseCase}
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -8 }}
+              transition={{ duration: 0.2 }}
+              className="flex flex-wrap justify-center gap-2 mt-4"
+            >
+              {useCase.prompts.map((p) => (
+                <button
+                  key={p}
+                  onClick={() => sendMessage(p)}
+                  disabled={loading}
+                  className={`rounded-full border ${useCase.border} ${useCase.bg} px-4 py-2 text-xs ${useCase.color} hover:opacity-80 transition disabled:opacity-40`}
+                >
+                  {p}
+                </button>
+              ))}
+            </motion.div>
+          </AnimatePresence>
+        </div>
+
+        <div className="grid lg:grid-cols-[260px_1fr] gap-6 items-start">
+
+          {/* Left panel */}
           <div className="space-y-4">
             {/* Model selector */}
             <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
-              <p className="text-xs font-semibold uppercase tracking-widest text-slate-500 mb-3">Model</p>
+              <p className="text-xs font-semibold uppercase tracking-widest text-slate-500 mb-3">AI Model</p>
               <div className="relative">
                 <button
                   onClick={() => setModelOpen((v) => !v)}
@@ -195,18 +265,12 @@ export default function AIPlayground() {
               </div>
             </div>
 
-            {/* System prompt */}
-            <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
-              <p className="text-xs font-semibold uppercase tracking-widest text-slate-500 mb-3">System Prompt</p>
-              <p className="text-xs text-slate-400 leading-relaxed">{SYSTEM_PROMPTS[model.id]}</p>
-            </div>
-
-            {/* Stats */}
+            {/* Capabilities */}
             <div className="rounded-2xl border border-white/10 bg-white/5 p-4 space-y-3">
               <p className="text-xs font-semibold uppercase tracking-widest text-slate-500">Capabilities</p>
               {[
-                { icon: <Brain size={14} />, label: 'Reasoning', color: 'text-blue-400' },
-                { icon: <Zap size={14} />, label: 'Real-time', color: 'text-purple-400' },
+                { icon: <Brain size={14} />, label: 'Deep reasoning', color: 'text-blue-400' },
+                { icon: <Zap size={14} />, label: 'Real-time responses', color: 'text-purple-400' },
                 { icon: <Sparkles size={14} />, label: 'Context-aware', color: 'text-cyan-400' },
               ].map((c) => (
                 <div key={c.label} className={`flex items-center gap-2 text-xs ${c.color}`}>
@@ -217,15 +281,15 @@ export default function AIPlayground() {
               ))}
             </div>
 
-            {/* Prompt library */}
+            {/* General prompts */}
             <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
-              <p className="text-xs font-semibold uppercase tracking-widest text-slate-500 mb-3">Prompt Library</p>
+              <p className="text-xs font-semibold uppercase tracking-widest text-slate-500 mb-3">General Prompts</p>
               <div className="space-y-1.5">
-                {PROMPTS.map((p) => (
+                {GENERAL_PROMPTS.map((p) => (
                   <button
                     key={p}
                     onClick={() => sendMessage(p)}
-                    disabled={streaming}
+                    disabled={loading}
                     className="w-full text-left rounded-lg px-3 py-2 text-xs text-slate-400 hover:bg-white/8 hover:text-white transition-all duration-150 disabled:opacity-40"
                   >
                     <span className="text-blue-500 mr-1.5">→</span>{p}
@@ -233,10 +297,20 @@ export default function AIPlayground() {
                 ))}
               </div>
             </div>
+
+            {/* CTA */}
+            <Link
+              href="/estimator"
+              className="block rounded-2xl border border-blue-500/30 bg-blue-500/10 p-4 text-center hover:bg-blue-500/15 transition group"
+            >
+              <p className="text-sm font-semibold text-white mb-1">Get a real estimate</p>
+              <p className="text-xs text-slate-400 group-hover:text-slate-300 transition">Answer 5 questions → AI generates your project scope & cost</p>
+              <p className="text-xs text-blue-400 mt-2 font-medium">Try the Estimator →</p>
+            </Link>
           </div>
 
           {/* Right panel — chat */}
-          <div className="rounded-2xl border border-white/10 bg-slate-900 overflow-hidden flex flex-col" style={{ minHeight: '600px' }}>
+          <div className="rounded-2xl border border-white/10 bg-slate-900 overflow-hidden flex flex-col" style={{ minHeight: '580px' }}>
             {/* Header */}
             <div className="flex items-center justify-between border-b border-white/8 px-5 py-4 bg-slate-950/50">
               <div className="flex items-center gap-3">
@@ -249,12 +323,8 @@ export default function AIPlayground() {
               </div>
               <div className="flex items-center gap-3">
                 <div className="flex items-center gap-1.5 text-xs text-emerald-400">
-                  <motion.span
-                    className="h-1.5 w-1.5 rounded-full bg-emerald-400"
-                    animate={{ opacity: [1, 0.3, 1] }}
-                    transition={{ duration: 2, repeat: Infinity }}
-                  />
-                  Live
+                  <motion.span className="h-1.5 w-1.5 rounded-full bg-emerald-400" animate={{ opacity: [1, 0.3, 1] }} transition={{ duration: 2, repeat: Infinity }} />
+                  Live AI
                 </div>
                 <button
                   onClick={reset}
@@ -267,7 +337,7 @@ export default function AIPlayground() {
 
             {/* Messages */}
             <div className="flex-1 overflow-y-auto px-5 py-5 space-y-5">
-              {messages.length === 0 && !streaming && (
+              {messages.length === 0 && !loading && (
                 <motion.div
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -277,7 +347,7 @@ export default function AIPlayground() {
                     <Bot size={24} className="text-white" />
                   </div>
                   <p className="text-white font-semibold mb-2">{model.label}</p>
-                  <p className="text-sm text-slate-500 max-w-xs">Select a prompt from the library or type your own question to get started.</p>
+                  <p className="text-sm text-slate-500 max-w-xs">Pick an industry tab above, select a prompt, or type your own question.</p>
                 </motion.div>
               )}
 
@@ -300,41 +370,15 @@ export default function AIPlayground() {
                 ))}
               </AnimatePresence>
 
-              {/* Streaming message */}
-              {streaming && streamingText && (
-                <motion.div
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  className="flex gap-3"
-                >
-                  <div className="shrink-0 flex h-8 w-8 items-center justify-center rounded-xl bg-gradient-to-br from-blue-600 to-purple-600">
-                    <Bot size={14} className="text-white" />
-                  </div>
-                  <div className="max-w-[80%] rounded-2xl rounded-tl-sm px-4 py-3 text-sm bg-white/5 text-slate-200 border border-white/8">
-                    <StreamingMessage text={streamingText} />
-                    <motion.span
-                      className="inline-block ml-0.5 h-4 w-0.5 bg-blue-400 align-middle"
-                      animate={{ opacity: [1, 0, 1] }}
-                      transition={{ duration: 0.7, repeat: Infinity }}
-                    />
-                  </div>
-                </motion.div>
-              )}
-
-              {/* Thinking indicator */}
-              {streaming && !streamingText && (
-                <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex gap-3">
+              {/* Loading indicator */}
+              {loading && (
+                <motion.div initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} className="flex gap-3">
                   <div className="shrink-0 flex h-8 w-8 items-center justify-center rounded-xl bg-gradient-to-br from-blue-600 to-purple-600">
                     <Bot size={14} className="text-white" />
                   </div>
                   <div className="rounded-2xl rounded-tl-sm px-4 py-3 bg-white/5 border border-white/8 flex items-center gap-1.5">
                     {[0, 0.15, 0.3].map((d, i) => (
-                      <motion.span
-                        key={i}
-                        className="h-1.5 w-1.5 rounded-full bg-slate-500"
-                        animate={{ opacity: [0.3, 1, 0.3], y: [0, -3, 0] }}
-                        transition={{ duration: 0.8, repeat: Infinity, delay: d }}
-                      />
+                      <motion.span key={i} className="h-1.5 w-1.5 rounded-full bg-slate-500" animate={{ opacity: [0.3, 1, 0.3], y: [0, -3, 0] }} transition={{ duration: 0.8, repeat: Infinity, delay: d }} />
                     ))}
                   </div>
                 </motion.div>
@@ -352,18 +396,20 @@ export default function AIPlayground() {
                   onChange={(e) => setInput(e.target.value)}
                   onKeyDown={(e) => e.key === 'Enter' && !e.shiftKey && sendMessage(input)}
                   placeholder={`Ask ${model.label} anything...`}
-                  disabled={streaming}
+                  disabled={loading}
                   className="flex-1 rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white placeholder-slate-500 focus:outline-none focus:ring-1 focus:ring-blue-500 transition disabled:opacity-50"
                 />
                 <button
                   onClick={() => sendMessage(input)}
-                  disabled={!input.trim() || streaming}
+                  disabled={!input.trim() || loading}
                   className="flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-to-br from-blue-600 to-purple-600 text-white hover:scale-105 transition-transform disabled:opacity-40 disabled:hover:scale-100"
                 >
                   <Send size={16} />
                 </button>
               </div>
-              <p className="mt-2 text-center text-xs text-slate-600">This is a simulated demo. <a href="/contact#contact-form" className="text-blue-500 hover:text-blue-400 transition-colors">Contact us</a> to deploy real AI for your business.</p>
+              <p className="mt-2 text-center text-xs text-slate-600">
+                Powered by Groq · llama3-70b · <Link href="/contact#contact-form" className="text-blue-500 hover:text-blue-400 transition-colors">Deploy this for your business →</Link>
+              </p>
             </div>
           </div>
         </div>

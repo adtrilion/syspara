@@ -76,7 +76,7 @@
 
 ---
 
-## Phase 5 — AI Project Estimator
+## Phase 5 — AI Project Estimator ✅ COMPLETE
 > Goal: high-quality lead generator tool
 
 User answers:
@@ -92,9 +92,11 @@ AI generates:
 - Approximate Cost
 - Timeline
 
-- [ ] Build estimator UI
-- [ ] Build estimator API route
-- [ ] Connect to lead capture
+- [x] Build estimator UI (5-step single-click flow)
+- [x] Build estimator API route (/api/estimator — Groq 70B)
+- [x] Connect to lead capture (name, email, phone + email alert)
+- [x] Add to Navbar (AI dropdown + mobile menu)
+- [x] Live at syspara.in/estimator
 
 ---
 
