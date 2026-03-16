@@ -12,6 +12,7 @@ const inter = Inter({
 });
 
 const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://syspara.in';
+const OG_IMAGE = `${process.env.NEXT_PUBLIC_SITE_URL || 'https://syspara.in'}/api/og`;
 
 export const metadata: Metadata = {
   metadataBase: new URL(BASE_URL),
@@ -33,7 +34,7 @@ export const metadata: Metadata = {
       'SysPara builds AI-powered digital solutions, automations, and enterprise products that help modern businesses grow faster and operate smarter.',
     images: [
       {
-        url: '/og-image.png',
+        url: OG_IMAGE,
         width: 1200,
         height: 630,
         alt: 'SysPara — AI & Automation for Modern Businesses',
@@ -45,7 +46,7 @@ export const metadata: Metadata = {
     title: 'SysPara — AI & Automation for Modern Businesses',
     description:
       'SysPara builds AI-powered digital solutions, automations, and enterprise products that help modern businesses grow faster and operate smarter.',
-    images: ['/og-image.png'],
+    images: [OG_IMAGE],
   },
   robots: {
     index: true,

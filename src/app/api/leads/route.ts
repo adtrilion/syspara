@@ -1,12 +1,14 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { Resend } from 'resend';
+import { supabase } from '@/lib/supabase';
+import { rateLimit } from '@/lib/rateLimit';
 
 const WHATSAPP_NUMBER = '+971544318822';
 
 async function sendWhatsApp(message: string) {
   const token = process.env.WHATSAPP_TOKEN;
   const phoneId = process.env.WHATSAPP_PHONE_ID;
-  if (!token || !phoneId) return; // skip if not configured
+  if (!token || !phoneId) return;
 
   await fetch(`https://graph.facebook.com/v19.0/${phoneId}/messages`, {
     method: 'POST',
@@ -20,15 +22,31 @@ async function sendWhatsApp(message: string) {
       type: 'text',
       text: { body: message },
     }),
-  }).catch(() => {}); // silent — email is the primary alert
+  }).catch(() => {});
 }
 
 export async function POST(req: NextRequest) {
+  const ip = req.headers.get('x-forwarded-for') ?? 'unknown';
+  if (!rateLimit(ip, 5, 60_000)) {
+    return NextResponse.json({ error: 'Too many requests' }, { status: 429 });
+  }
+
   const { name, email, phone, company, service, message } = await req.json();
 
   if (!name || !email || !message) {
     return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });
   }
+
+  // Save to Supabase
+  await supabase.from('leads').insert({
+    name,
+    email,
+    phone: phone || null,
+    company: company || null,
+    service: service || 'General',
+    message,
+    source: 'chatbot',
+  });
 
   const resend = new Resend(process.env.RESEND_API_KEY);
 

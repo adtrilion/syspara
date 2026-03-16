@@ -1,9 +1,15 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { SITE_KNOWLEDGE } from '@/data/siteKnowledge';
+import { rateLimit } from '@/lib/rateLimit';
 
 type Message = { role: 'user' | 'assistant'; content: string };
 
 export async function POST(req: NextRequest) {
+  const ip = req.headers.get('x-forwarded-for') ?? 'unknown';
+  if (!rateLimit(ip, 30, 60_000)) {
+    return NextResponse.json({ error: 'Too many requests' }, { status: 429 });
+  }
+
   const body = await req.json();
   const messages: Message[] = body.messages;
   const systemPrompt: string = body.systemPrompt || SITE_KNOWLEDGE;

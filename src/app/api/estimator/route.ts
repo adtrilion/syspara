@@ -1,5 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { Resend } from 'resend';
+import { supabase } from '@/lib/supabase';
+import { rateLimit } from '@/lib/rateLimit';
 
 type Answers = {
   companyType: string;
@@ -13,6 +15,11 @@ type Answers = {
 };
 
 export async function POST(req: NextRequest) {
+  const ip = req.headers.get('x-forwarded-for') ?? 'unknown';
+  if (!rateLimit(ip, 3, 60_000)) {
+    return NextResponse.json({ error: 'Too many requests' }, { status: 429 });
+  }
+
   const answers: Answers = await req.json();
 
   if (!answers.name || !answers.email || !answers.companyType) {
@@ -65,6 +72,16 @@ Return ONLY a valid JSON object with exactly these fields:
   } catch {
     return NextResponse.json({ error: 'Failed to parse estimate' }, { status: 500 });
   }
+
+  // Save to Supabase
+  await supabase.from('leads').insert({
+    name: answers.name,
+    email: answers.email,
+    phone: answers.phone || null,
+    service: answers.solutionType,
+    message: `Estimator lead — ${answers.companyType}, ${answers.automationNeeds}, budget: ${answers.budget}`,
+    source: 'estimator',
+  });
 
   // Send lead alert email
   try {
