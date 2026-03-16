@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { Resend } from 'resend';
 import { supabase } from '@/lib/supabase';
 import { rateLimit } from '@/lib/rateLimit';
+import { scoreLead } from '@/lib/scoreLead';
 
 const WHATSAPP_NUMBER = '+971544318822';
 
@@ -37,7 +38,9 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });
   }
 
-  // Save to Supabase
+  // Score the lead and save to Supabase
+  const score = await scoreLead({ name, email, service, message, source: 'chatbot' });
+
   await supabase.from('leads').insert({
     name,
     email,
@@ -46,6 +49,7 @@ export async function POST(req: NextRequest) {
     service: service || 'General',
     message,
     source: 'chatbot',
+    score,
   });
 
   const resend = new Resend(process.env.RESEND_API_KEY);

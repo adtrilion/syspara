@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { Resend } from 'resend';
 import { supabase } from '@/lib/supabase';
 import { rateLimit } from '@/lib/rateLimit';
+import { scoreLead } from '@/lib/scoreLead';
 
 type Answers = {
   companyType: string;
@@ -73,14 +74,18 @@ Return ONLY a valid JSON object with exactly these fields:
     return NextResponse.json({ error: 'Failed to parse estimate' }, { status: 500 });
   }
 
-  // Save to Supabase
+  // Score and save to Supabase
+  const message = `Estimator lead — ${answers.companyType}, ${answers.automationNeeds}, budget: ${answers.budget}`;
+  const score = await scoreLead({ name: answers.name, email: answers.email, service: answers.solutionType, message, source: 'estimator' });
+
   await supabase.from('leads').insert({
     name: answers.name,
     email: answers.email,
     phone: answers.phone || null,
     service: answers.solutionType,
-    message: `Estimator lead — ${answers.companyType}, ${answers.automationNeeds}, budget: ${answers.budget}`,
+    message,
     source: 'estimator',
+    score,
   });
 
   // Send lead alert email

@@ -62,6 +62,8 @@ export default function LeadChatbot() {
   const inputRef = useRef<HTMLInputElement>(null);
   const idRef = useRef(0);
   const highIntentTriggered = useRef(false);
+  const sessionId = useRef(`session_${Date.now()}_${Math.random().toString(36).slice(2, 8)}`);
+  const logTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   function nextId() {
     idRef.current += 1;
@@ -90,6 +92,29 @@ export default function LeadChatbot() {
     } catch {
       return "I'm having trouble right now. Please contact us at info@syspara.in or call +971 544 31 8822.";
     }
+  }
+
+  async function logConversation(currentMessages: Message[], leadCaptured: boolean, leadEmail?: string) {
+    if (currentMessages.length < 2) return; // don't log single-message sessions
+    try {
+      await fetch('/api/conversations', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          sessionId: sessionId.current,
+          messages: currentMessages.map((m) => ({ role: m.role, text: m.text })),
+          leadCaptured,
+          leadEmail,
+        }),
+      });
+    } catch {
+      // silent
+    }
+  }
+
+  function scheduleLog(msgs: Message[], leadCaptured: boolean, leadEmail?: string) {
+    if (logTimer.current) clearTimeout(logTimer.current);
+    logTimer.current = setTimeout(() => logConversation(msgs, leadCaptured, leadEmail), 3000);
   }
 
   async function submitLead(finalLead: typeof lead, count: number) {
@@ -158,6 +183,8 @@ export default function LeadChatbot() {
       setLead(finalLead);
       setStage('done');
       await submitLead(finalLead, newCount);
+      const updatedMessages = [...currentMessages, { id: nextId(), role: 'user' as const, text: val }];
+      await logConversation(updatedMessages, true, finalLead.email);
       addBot(
         `You're all set, ${finalLead.name}! ✅ I've sent your details to the SysPara team — someone will reach out within 1 business day.\n\nIn the meantime, feel free to explore syspara.in/ai-demo to see our AI in action. Anything else I can help with?`,
         800,
@@ -169,7 +196,9 @@ export default function LeadChatbot() {
     setTyping(true);
     const reply = await getAIResponse(currentMessages, val);
     setTyping(false);
+    const updatedMsgs = [...currentMessages, { id: idRef.current, role: 'user' as const, text: val }, { id: idRef.current + 1, role: 'bot' as const, text: reply }];
     setMessages((prev) => [...prev, { id: nextId(), role: 'bot', text: reply }]);
+    scheduleLog(updatedMsgs, stage === 'done', lead.email || undefined);
 
     // High-intent detection
     if (HIGH_INTENT_PATTERNS.test(val) && !highIntentTriggered.current && stage === 'chat') {
