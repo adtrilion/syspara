@@ -7,7 +7,7 @@
 
 ### Backend
 - [x] Create `/api/chat` AI endpoint
-- [x] Connect chatbot to Groq API (Llama 3.1 — free tier, replaces OpenAI)
+- [x] Connect chatbot to Groq API (llama3-70b-8192 — free tier, replaces OpenAI)
 - [x] Add system prompt describing SysPara services
 - [x] Add conversation memory (historyRef — last 10 messages)
 - [x] Improve response tone (human consultant style — Agent SysPara persona)

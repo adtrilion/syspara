@@ -19,6 +19,7 @@ const aiNav = [
   { href: '/ai-solutions', label: 'AI Solutions' },
   { href: '/ai-agents', label: 'AI Agents' },
   { href: '/demo', label: 'AI Demo' },
+  { href: '/estimator', label: '🎯 Project Estimator' },
   { href: '/dashboard', label: 'Dashboard' },
   { href: '/industries', label: 'Industries' },
 ];
@@ -30,6 +31,7 @@ const allMobileNav = [
   { href: '/ai-solutions', label: 'AI Solutions' },
   { href: '/ai-agents', label: 'AI Agents' },
   { href: '/demo', label: 'AI Demo' },
+  { href: '/estimator', label: '🎯 Project Estimator' },
   { href: '/dashboard', label: 'Dashboard' },
   { href: '/industries', label: 'Industries' },
   { href: '/portfolio', label: 'Portfolio' },
