@@ -15,6 +15,10 @@ type Answers = {
 export async function POST(req: NextRequest) {
   const answers: Answers = await req.json();
 
+  if (!answers.name || !answers.email || !answers.companyType) {
+    return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });
+  }
+
   const apiKey = process.env.GROQ_API_KEY;
   if (!apiKey) return NextResponse.json({ error: 'GROQ_API_KEY not configured' }, { status: 500 });
 

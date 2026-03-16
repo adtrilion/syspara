@@ -113,15 +113,13 @@ export default function AIPlayground() {
   const [selectedModel, setSelectedModel] = useState(MODELS[0]);
   const [modelOpen, setModelOpen] = useState(false);
   const [activeUseCase, setActiveUseCase] = useState(0);
-  const [idCounter, setIdCounter] = useState(0);
   const bottomRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
-  const historyRef = useRef<{ role: 'user' | 'assistant'; content: string }[]>([]);
+  const idRef = useRef(0);
 
   function nextId() {
-    const id = idCounter + 1;
-    setIdCounter(id);
-    return id;
+    idRef.current += 1;
+    return idRef.current;
   }
 
   useEffect(() => {
@@ -135,22 +133,20 @@ export default function AIPlayground() {
     setInput('');
     setLoading(true);
 
-    historyRef.current.push({ role: 'user', content: text.trim() });
-
     try {
+      // Build clean history from current messages state + new user message
+      const history = [
+        ...messages.map((m) => ({ role: m.role as 'user' | 'assistant', content: m.text })),
+        { role: 'user' as const, content: text.trim() },
+      ].slice(-8);
+
       const res = await fetch('/api/chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          messages: [
-            { role: 'system', content: selectedModel.systemPrompt },
-            ...historyRef.current.slice(-8),
-          ],
-        }),
+        body: JSON.stringify({ messages: history, systemPrompt: selectedModel.systemPrompt }),
       });
       const data = await res.json();
       const reply = data.reply ?? 'Sorry, I had trouble responding. Please try again.';
-      historyRef.current.push({ role: 'assistant', content: reply });
       setMessages((prev) => [...prev, { role: 'assistant', text: reply, id: nextId() }]);
     } catch {
       setMessages((prev) => [...prev, { role: 'assistant', text: 'Something went wrong. Please try again.', id: nextId() }]);
@@ -164,7 +160,6 @@ export default function AIPlayground() {
     setMessages([]);
     setLoading(false);
     setInput('');
-    historyRef.current = [];
     setTimeout(() => inputRef.current?.focus(), 100);
   }
 

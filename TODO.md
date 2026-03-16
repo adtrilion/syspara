@@ -28,17 +28,8 @@
 - [x] Scrape blog posts (all 6 posts + Q&A ingested)
 - [x] Extract clean text
 
-### Embeddings
-- [ ] Generate embeddings using OpenAI/Groq
-  > Currently using full-context injection (works well at this site size). Embeddings needed when content grows large.
-
-### Vector database
-- [ ] Setup Supabase vector table
-- [ ] Store page embeddings
-
 ### Retrieval system
-- [x] User question → sent to AI with full site context
-- [ ] Search vector DB (not needed yet — full context fits in prompt)
+- [x] User question → sent to AI with full site context (full-context injection)
 - [x] Send relevant content to AI
 
 ---
@@ -61,18 +52,19 @@
 
 ### Alerts
 - [x] Email notification on every lead (via Resend)
-- [ ] WhatsApp notification — code ready, needs WHATSAPP_TOKEN + WHATSAPP_PHONE_ID in Vercel env
+- [ ] WhatsApp notification — postponed, code ready, needs WHATSAPP_TOKEN + WHATSAPP_PHONE_ID in Vercel env
 - [ ] Slack notification
 
 ---
 
-## Phase 4 — AI Demo Upgrade
+## Phase 4 — AI Demo Upgrade ✅ COMPLETE
 > Goal: improve the /demo page into a stronger sales page
 
-- [ ] Example prompts
-- [ ] Business use cases
-- [ ] AI workflow examples
-- [ ] CTA to contact
+- [x] Example prompts (general + industry-specific)
+- [x] Business use cases (E-commerce, Healthcare, Finance, Operations tabs)
+- [x] AI workflow examples (4-step How It Works section)
+- [x] CTA to contact (dual CTA — Estimator + Book Consultation)
+- [x] Wired to real Groq AI (replaced hardcoded responses)
 
 ---
 
@@ -100,16 +92,7 @@ AI generates:
 
 ---
 
-## Phase 6 — Auto Website Learning
-> Goal: chatbot updates itself automatically
-
-- [ ] Daily cron job to scrape website
-- [ ] Auto-generate embeddings
-- [ ] Update vector database
-
----
-
-## Phase 7 — Voice AI (Optional)
+## Phase 6 — Voice AI (Optional)
 > Stack: Whisper (speech recognition) + ElevenLabs (voice response)
 
 - [x] Blog audio player (Web Speech API — basic read-aloud on blog posts)
@@ -118,7 +101,7 @@ AI generates:
 
 ---
 
-## Phase 8 — High Value Lead Alerts
+## Phase 7 — High Value Lead Alerts
 > When AI detects strong lead signals, notify instantly
 
 - [x] High-intent detection logic (fires on strong buying signals)
@@ -128,7 +111,7 @@ AI generates:
 
 ---
 
-## Phase 9 — Analytics
+## Phase 8 — Analytics
 > Track chatbot performance
 
 - [ ] Number of conversations
@@ -140,7 +123,7 @@ AI generates:
 
 ---
 
-## Phase 10 — AI Sales Automation (Future)
+## Phase 9 — AI Sales Automation (Future)
 > Optional later stage
 
 - [ ] AI follow-up emails to leads
@@ -154,17 +137,21 @@ AI generates:
 ```
 Visitor
   ↓
-Agent SysPara (AI Chatbot)       ✅ Live
+Agent SysPara (AI Chatbot)       ✅ Live — Groq 70B, fixed history bug
   ↓
-Website Knowledge (RAG)          ✅ Live (full-context)
+Website Knowledge (RAG)          ✅ Live (full-context injection)
   ↓
-Lead Qualification                ✅ Live
+AI Demo Playground               ✅ Live — real AI, industry tabs
   ↓
-Contact Capture                   ✅ Live
+AI Project Estimator             ✅ Live — 5-step, lead capture, email alert
   ↓
-You get notified                  ✅ Live (email) / ⏳ WhatsApp pending
+Lead Qualification                ✅ Live — high-intent detection
+  ↓
+Contact Capture                   ✅ Live — name, email, phone
+  ↓
+You get notified                  ✅ Live (email) / ⏳ WhatsApp postponed
 ```
 
 ---
 
-_Last updated: auto-generated from codebase audit_
+_Last updated: Phases 1–5 complete, chatbot history bug fixed (buildHistory() approach)_

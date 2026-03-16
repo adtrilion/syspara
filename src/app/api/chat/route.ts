@@ -4,10 +4,17 @@ import { SITE_KNOWLEDGE } from '@/data/siteKnowledge';
 type Message = { role: 'user' | 'assistant'; content: string };
 
 export async function POST(req: NextRequest) {
-  const { messages } = (await req.json()) as { messages: Message[] };
+  const body = await req.json();
+  const messages: Message[] = body.messages;
+  const systemPrompt: string = body.systemPrompt || SITE_KNOWLEDGE;
 
   if (!messages?.length) {
     return NextResponse.json({ error: 'No messages provided' }, { status: 400 });
+  }
+
+  // Basic abuse prevention
+  if (messages.length > 20) {
+    return NextResponse.json({ error: 'Too many messages' }, { status: 400 });
   }
 
   const apiKey = process.env.GROQ_API_KEY;
@@ -24,8 +31,8 @@ export async function POST(req: NextRequest) {
     body: JSON.stringify({
       model: 'llama3-70b-8192',
       messages: [
-        { role: 'system', content: SITE_KNOWLEDGE },
-        ...messages.slice(-10), // keep last 10 messages for context window
+        { role: 'system', content: systemPrompt },
+        ...messages.slice(-10),
       ],
       max_tokens: 400,
       temperature: 0.5,

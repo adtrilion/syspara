@@ -21,7 +21,6 @@ const aiNav = [
   { href: '/demo', label: 'AI Demo' },
   { href: '/estimator', label: '🎯 Project Estimator' },
   { href: '/dashboard', label: 'Dashboard' },
-  { href: '/industries', label: 'Industries' },
 ];
 
 const allMobileNav = [
@@ -118,14 +117,6 @@ export default function Navbar() {
                     {item.label}
                   </Link>
                 ))}
-                <div className="my-1 h-px bg-slate-100" />
-                <Link
-                  href="/about"
-                  onClick={() => setAiOpen(false)}
-                  className="block px-4 py-2 text-sm text-slate-600 hover:bg-slate-50 hover:text-blue-600 transition-colors"
-                >
-                  About
-                </Link>
               </div>
             )}
           </div>
