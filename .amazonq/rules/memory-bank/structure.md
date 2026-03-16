@@ -1,57 +1,99 @@
-# SysPara Website — Project Structure
+# Project Structure
 
-## Root Layout
+## Directory Layout
 ```
 syspara-website/
 ├── src/
-│   ├── app/          # Next.js App Router pages and API routes
-│   ├── components/   # React components (sections, ui, forms, blog)
-│   ├── data/         # Static typed data (services, blog posts)
-│   └── styles/       # Theme constants and global CSS
-├── public/           # Static assets (icons, images, SVGs)
-├── .amazonq/rules/   # Amazon Q memory bank rules
-├── next.config.ts    # Next.js config (Turbopack, images, CDN)
-├── tsconfig.json     # TypeScript config
-├── .prettierrc       # Prettier formatting config
-└── eslint.config.mjs # ESLint config
+│   ├── app/                    # Next.js App Router pages & API routes
+│   │   ├── layout.tsx          # Root layout (Navbar, Footer, LeadBot, metadata)
+│   │   ├── page.tsx            # Homepage
+│   │   ├── globals.css         # Global CSS (Tailwind base + custom utilities)
+│   │   ├── about/              # About page
+│   │   ├── ai-agents/          # AI Agents page
+│   │   ├── ai-demo/            # Interactive AI demo page
+│   │   ├── ai-solutions/       # AI Solutions page
+│   │   ├── blog/[slug]/        # Dynamic blog post pages
+│   │   ├── contact/            # Contact page
+│   │   ├── dashboard/          # Dashboard demo page
+│   │   ├── industries/         # Industries page
+│   │   ├── portfolio/          # Portfolio/case studies page
+│   │   ├── services/           # Services page
+│   │   └── api/
+│   │       ├── contact/        # POST handler — sends email via Resend
+│   │       └── leads/          # POST handler — captures lead data
+│   ├── components/
+│   │   ├── ai/                 # AI-specific interactive components
+│   │   │   ├── LeadBot.tsx     # Floating chatbot (global, in root layout)
+│   │   │   ├── LeadChatbot.tsx # Chatbot UI internals
+│   │   │   ├── AIDemo.tsx      # AI demo component
+│   │   │   ├── AIPlayground.tsx
+│   │   │   └── DashboardDemo.tsx
+│   │   ├── sections/           # Full-width page sections (used inside pages)
+│   │   │   ├── Hero.tsx        # Homepage hero
+│   │   │   ├── CTA.tsx         # Call-to-action section
+│   │   │   ├── Process.tsx     # Process/how-it-works
+│   │   │   ├── Industries.tsx
+│   │   │   ├── TechStack.tsx
+│   │   │   ├── PortfolioGrid.tsx
+│   │   │   ├── ContactFormSection.tsx
+│   │   │   └── ... (AI-specific sections)
+│   │   ├── ui/                 # Reusable primitive UI components
+│   │   │   ├── Button.tsx
+│   │   │   ├── Card.tsx
+│   │   │   ├── CTASection.tsx
+│   │   │   ├── AnimatedSection.tsx
+│   │   │   ├── ServiceCard.tsx
+│   │   │   ├── PortfolioCard.tsx
+│   │   │   ├── IndustryCard.tsx
+│   │   │   ├── ProjectCard.tsx
+│   │   │   └── TestimonialCard.tsx
+│   │   ├── forms/
+│   │   │   ├── ContactForm.tsx
+│   │   │   └── NewsletterForm.tsx
+│   │   ├── blog/
+│   │   │   ├── BlogCard.tsx
+│   │   │   └── BlogHero.tsx
+│   │   ├── dashboard/
+│   │   │   └── DashboardDemo.tsx
+│   │   ├── Navbar.tsx          # Global navigation
+│   │   └── Footer.tsx          # Global footer
+│   ├── data/
+│   │   ├── services.ts         # Static services data
+│   │   └── blogPosts.ts        # Static blog post data
+│   └── styles/
+│       ├── globals.css         # Duplicate/alias of app/globals.css
+│       └── theme.ts            # Shared color/gradient constants
+├── public/
+│   ├── icons/
+│   ├── images/
+│   ├── robots.txt
+│   └── sitemap.xml
+├── next.config.ts
+├── tsconfig.json
+├── postcss.config.mjs
+├── eslint.config.mjs
+└── .prettierrc
 ```
 
-## src/app — Pages (App Router)
-| Route | File |
-|---|---|
-| `/` | `app/page.tsx` |
-| `/about` | `app/about/page.tsx` |
-| `/services` | `app/services/page.tsx` |
-| `/ai-solutions` | `app/ai-solutions/page.tsx` |
-| `/ai-agents` | `app/ai-agents/page.tsx` |
-| `/industries` | `app/industries/page.tsx` |
-| `/portfolio` | `app/portfolio/page.tsx` |
-| `/blog` | `app/blog/page.tsx` |
-| `/blog/[slug]` | `app/blog/[slug]/page.tsx` |
-| `/contact` | `app/contact/page.tsx` |
-| `POST /api/contact` | `app/api/contact/` |
-| `POST /api/leads` | `app/api/leads/` |
-
-## src/components — Component Layers
-- **sections/** — Full-width page sections (Hero, Services, AIInnovation, CTA, etc.)
-- **ui/** — Reusable atomic components (Button, Card, AnimatedSection, ServiceCard, etc.)
-- **forms/** — Form components (ContactForm with react-hook-form + zod)
-- **blog/** — Blog-specific components (BlogCard, BlogHero)
-- **Navbar.tsx** — Sticky responsive navigation with scroll detection
-- **Footer.tsx** — Site-wide footer
-
-## src/data — Static Data
-- `services.ts` — Typed `Service[]` array
-- `blogPosts.ts` — Blog post data
-
-## src/styles — Design Tokens
-- `theme.ts` — Color palette and gradient definitions
-- `globals.css` — Tailwind base styles and custom CSS utilities
-
 ## Architectural Patterns
-- **App Router** with file-based routing (Next.js 16)
-- **Server Components by default**; `'use client'` only where interactivity/hooks are needed
-- **Section-based page composition** — pages import and compose section components
-- **Atomic UI layer** — reusable cards, buttons, and wrappers in `components/ui/`
-- **Typed static data** — data files export typed arrays consumed by components
-- **API routes** for form submission (contact) and lead capture
+
+### Component Hierarchy
+- **Pages** (`src/app/**/page.tsx`) — compose multiple `sections/` components
+- **Sections** (`components/sections/`) — full-width, self-contained page sections with their own data
+- **UI primitives** (`components/ui/`) — reusable cards, buttons, animated wrappers
+- **AI components** (`components/ai/`) — interactive client components for demos and chatbot
+
+### Routing
+- Next.js App Router with file-based routing
+- Dynamic route: `/blog/[slug]`
+- API routes under `src/app/api/`
+
+### Data Flow
+- Static data in `src/data/` (services, blog posts) — no external CMS
+- Form submissions → API routes → Resend email service
+- Lead capture → `/api/leads` route
+
+### Layout
+- Single root layout wraps all pages with Navbar, Footer, and global LeadBot chatbot
+- About page has its own nested `layout.tsx`
+- `'use client'` directive used on interactive/animated components; pages default to Server Components

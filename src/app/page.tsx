@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import Hero from '@/components/sections/Hero';
 import ServicesOverview from '@/components/sections/ServicesOverview';
 import AIInnovation from '@/components/sections/AIInnovation';
@@ -75,10 +76,10 @@ export default function Home() {
         <div className="max-w-6xl mx-auto px-4 text-center">
           <AnimatedSection>
             <p className="text-xs font-semibold tracking-widest text-slate-500 uppercase mb-8">
-              Trusted by Businesses Across Multiple Industries
+              Trusted Technologies & Platforms
             </p>
             <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
-              {['Acme Corp', 'Helix AI', 'Nexus Labs', 'Pulse Tech'].map((name) => (
+              {['OpenAI', 'AWS', 'Google Cloud', 'Microsoft Azure'].map((name) => (
                 <div
                   key={name}
                   className="rounded-xl border border-white/10 bg-white/5 px-6 py-5 text-sm font-semibold text-slate-400 hover:border-white/20 hover:bg-white/8 transition"
@@ -181,6 +182,14 @@ export default function Home() {
               </AnimatedSection>
             ))}
           </div>
+          <AnimatedSection delay={0.3} className="mt-10 text-center">
+            <Link
+              href="/portfolio"
+              className="inline-flex items-center justify-center rounded-xl border border-white/20 px-6 py-3 text-sm font-semibold text-white hover:bg-white/10 hover:border-white/40 transition-all duration-200"
+            >
+              View All Projects →
+            </Link>
+          </AnimatedSection>
         </div>
       </section>
 

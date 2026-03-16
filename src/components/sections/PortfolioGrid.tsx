@@ -6,37 +6,37 @@ const projects = [
     title: 'AI Customer Support Bot',
     tech: 'Python • GPT • API Integration',
     description: 'Automated support assistant handling thousands of customer inquiries daily with 70% cost reduction.',
-    image: 'https://images.unsplash.com/photo-1531746790731-6c087fecd65a?w=800&q=80',
+    image: 'https://images.unsplash.com/photo-1587560699334-cc4ff634909a?w=1200&q=90',
   },
   {
     title: 'E-commerce Platform',
     tech: 'Next.js • Stripe • PostgreSQL',
     description: 'Full-featured online store with AI product recommendations and secure payment processing.',
-    image: 'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=800&q=80',
+    image: 'https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=1200&q=90',
   },
   {
     title: 'Logistics Dashboard',
     tech: 'React • Node.js • Data Analytics',
     description: 'Real-time fleet monitoring and operational insights for a regional logistics company.',
-    image: 'https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=800&q=80',
+    image: 'https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=1200&q=90',
   },
   {
     title: 'Real Estate Portal',
     tech: 'Next.js • Cloud Hosting',
     description: 'Property listing platform with advanced search, map integration, and lead capture.',
-    image: 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800&q=80',
+    image: 'https://images.unsplash.com/photo-1486325212027-8081e485255e?w=1200&q=90',
   },
   {
     title: 'Healthcare Appointment System',
     tech: 'React • Node.js • Database',
     description: 'Patient booking and hospital management system serving 10,000+ monthly appointments.',
-    image: 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=800&q=80',
+    image: 'https://images.unsplash.com/photo-1576671081837-49000212a370?w=1200&q=90',
   },
   {
     title: 'AI Research Assistant',
     tech: 'AI Agents • NLP • LangChain',
     description: 'Automated research and document summarization tool reducing analyst workload by 60%.',
-    image: 'https://images.unsplash.com/photo-1677442135703-1787eea5ce01?w=800&q=80',
+    image: 'https://images.unsplash.com/photo-1620641788421-7a1c342ea42e?w=1200&q=90',
   },
 ];
 

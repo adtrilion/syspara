@@ -97,7 +97,7 @@ export default function ContactForm() {
         <label className="block text-sm font-medium mb-1 text-slate-300" htmlFor="service">Service Interested In</label>
         <select
           id="service"
-          className={`${inputBase} ${errors.service ? inputError : inputNormal} bg-slate-800`}
+          className={`${inputBase} ${errors.service ? inputError : inputNormal} bg-slate-800 [&>option]:bg-slate-800 [&>option]:text-white`}
           {...register('service', { required: 'Please select a service' })}
         >
           <option value="">Select a service...</option>

@@ -15,7 +15,7 @@ export default function AIAgentsOverview() {
         <div className="grid md:grid-cols-2 gap-12 items-center">
           <AnimatedSection delay={0.2}>
             <div className="relative rounded-2xl overflow-hidden shadow-2xl shadow-blue-500/10">
-              <Image src="https://images.unsplash.com/photo-1677442135703-1787eea5ce01?w=800&q=80" alt="AI Agents Overview" width={600} height={480} className="object-cover w-full h-full" />
+              <Image src="https://images.unsplash.com/photo-1620641788421-7a1c342ea42e?w=1200&q=90" alt="Autonomous AI agent system with glowing digital connections" width={600} height={480} className="object-cover w-full h-full" />
               <div className="absolute inset-0 bg-gradient-to-tr from-blue-900/40 to-transparent" />
             </div>
           </AnimatedSection>

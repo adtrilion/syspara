@@ -3,7 +3,7 @@ import AnimatedSection from '@/components/ui/AnimatedSection';
 
 export default function ContactFormSection() {
   return (
-    <section className="py-24 bg-slate-900">
+    <section id="contact-form" className="py-24 bg-slate-900">
       <div className="max-w-3xl mx-auto px-4">
         <AnimatedSection className="text-center mb-10">
           <span className="inline-block rounded-full bg-blue-900/30 border border-blue-500/30 px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-blue-400 mb-4">

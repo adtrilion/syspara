@@ -71,7 +71,7 @@ export default function Hero() {
           className="mt-10 flex flex-wrap justify-center gap-4"
         >
           <Link
-            href="/contact"
+            href="/contact#contact-form"
             className="inline-flex items-center justify-center rounded-xl bg-gradient-to-r from-blue-600 to-purple-600 px-6 py-3 font-semibold text-sm text-white hover:scale-105 hover:shadow-lg hover:shadow-blue-500/25 transition-all duration-200"
           >
             Get Free Consultation
@@ -82,6 +82,25 @@ export default function Hero() {
           >
             Explore Services
           </Link>
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.4 }}
+          className="mt-10 flex flex-wrap justify-center gap-8 text-sm text-slate-400"
+        >
+          {[
+            { value: '10+', label: 'Years Experience' },
+            { value: '500+', label: 'Projects Delivered' },
+            { value: '12+', label: 'Industries Served' },
+          ].map((stat, i) => (
+            <div key={stat.label} className="flex items-center gap-2">
+              {i > 0 && <span className="h-4 w-px bg-slate-700" />}
+              <span className="font-bold text-white">{stat.value}</span>
+              <span className="text-slate-500">{stat.label}</span>
+            </div>
+          ))}
         </motion.div>
 
         <motion.div

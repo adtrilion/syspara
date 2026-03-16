@@ -38,8 +38,8 @@ export default function AIAutomation() {
           <AnimatedSection delay={0.2}>
             <div className="relative rounded-2xl overflow-hidden shadow-2xl shadow-purple-500/10">
               <Image
-                src="https://images.unsplash.com/photo-1518770660439-4636190af475?w=800&q=80"
-                alt="Workflow automation and AI-powered process management dashboard"
+                src="https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?w=1200&q=90"
+                alt="Intelligent workflow automation with code and AI pipelines"
                 width={600}
                 height={450}
                 className="object-cover w-full h-full"

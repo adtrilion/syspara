@@ -38,8 +38,8 @@ export default function AIAnalytics() {
           <AnimatedSection delay={0.2}>
             <div className="relative rounded-2xl overflow-hidden shadow-2xl shadow-emerald-500/10">
               <Image
-                src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&q=80"
-                alt="Predictive analytics dashboard showing business intelligence charts"
+                src="https://images.unsplash.com/photo-1639322537228-f710d846310a?w=1200&q=90"
+                alt="Dark data analytics dashboard with glowing charts and metrics"
                 width={600}
                 height={450}
                 className="object-cover w-full h-full"

@@ -29,21 +29,17 @@ export default function CTASection() {
             Partner with SysPara to launch your AI journey with proven strategy, automation, and measurable revenue growth.
           </p>
           <div className="mt-8 flex flex-wrap justify-center gap-4">
-            <Link href="/contact">
-              <motion.span
-                whileHover={{ scale: 1.05 }}
-                className="inline-block rounded-xl bg-gradient-to-r from-blue-600 to-purple-600 px-8 py-3 font-semibold text-white hover:shadow-lg hover:shadow-blue-500/25 transition-shadow cursor-pointer"
-              >
-                Book Free Consultation
-              </motion.span>
+            <Link
+              href="/contact#contact-form"
+              className="inline-flex items-center justify-center rounded-xl bg-gradient-to-r from-blue-600 to-purple-600 px-8 py-3 font-semibold text-white hover:scale-105 hover:shadow-lg hover:shadow-blue-500/25 transition-all duration-200"
+            >
+              Book Free Consultation
             </Link>
-            <Link href="/portfolio">
-              <motion.span
-                whileHover={{ scale: 1.05 }}
-                className="inline-block rounded-xl border border-white/20 px-8 py-3 font-semibold text-white hover:bg-white/10 transition cursor-pointer"
-              >
-                View Our Work
-              </motion.span>
+            <Link
+              href="/portfolio"
+              className="inline-flex items-center justify-center rounded-xl border border-white/20 px-8 py-3 font-semibold text-white hover:bg-white/10 transition-all duration-200"
+            >
+              View Our Work
             </Link>
           </div>
         </div>

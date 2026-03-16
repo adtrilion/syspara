@@ -8,9 +8,10 @@ import { Menu, X, ChevronDown } from 'lucide-react';
 const mainNav = [
   { href: '/', label: 'Home' },
   { href: '/services', label: 'Services' },
+  { href: '/industries', label: 'Industries' },
   { href: '/portfolio', label: 'Portfolio' },
   { href: '/blog', label: 'Blog' },
-  { href: '/demo', label: 'Demo' },
+  { href: '/about', label: 'About' },
   { href: '/contact', label: 'Contact' },
 ];
 
@@ -19,6 +20,7 @@ const aiNav = [
   { href: '/ai-agents', label: 'AI Agents' },
   { href: '/demo', label: 'AI Demo' },
   { href: '/dashboard', label: 'Dashboard' },
+  { href: '/industries', label: 'Industries' },
 ];
 
 const allMobileNav = [
@@ -91,6 +93,9 @@ export default function Navbar() {
           <div ref={dropdownRef} className="relative">
             <button
               onClick={() => setAiOpen((v) => !v)}
+              onKeyDown={(e) => e.key === 'Escape' && setAiOpen(false)}
+              aria-haspopup="true"
+              aria-expanded={aiOpen}
               className="flex items-center gap-1 text-slate-600 hover:text-blue-600 transition-colors"
             >
               AI
@@ -124,7 +129,7 @@ export default function Navbar() {
           </div>
 
           <Link
-            href="/contact"
+            href="/contact#contact-form"
             className="rounded-xl bg-gradient-to-r from-blue-600 to-purple-600 px-5 py-2 text-white hover:scale-105 hover:shadow-lg hover:shadow-blue-500/25 transition-all duration-200"
           >
             Book Consultation
@@ -155,7 +160,7 @@ export default function Navbar() {
               </Link>
             ))}
             <Link
-              href="/contact"
+              href="/contact#contact-form"
               onClick={() => setMenuOpen(false)}
               className="mt-2 rounded-xl bg-gradient-to-r from-blue-600 to-purple-600 px-4 py-2.5 text-center text-white font-semibold"
             >

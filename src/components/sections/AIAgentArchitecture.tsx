@@ -42,8 +42,8 @@ export default function AIAgentArchitecture() {
           <AnimatedSection delay={0.2}>
             <div className="relative rounded-2xl overflow-hidden shadow-2xl shadow-blue-500/10">
               <Image
-                src="https://images.unsplash.com/photo-1620712943543-bcc4688e7485?w=800&q=80"
-                alt="AI Agent Architecture"
+                src="https://images.unsplash.com/photo-1635070041078-e363dbe005cb?w=1200&q=90"
+                alt="AI neural network architecture with glowing nodes and connections"
                 width={600}
                 height={500}
                 className="object-cover w-full h-full"

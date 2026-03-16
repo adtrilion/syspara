@@ -1,147 +1,203 @@
-# SysPara Website — Development Guidelines
+# Development Guidelines
 
-## Code Formatting Standards
-- **Prettier config** (`.prettierrc`): `singleQuote: true`, `semi: true`, `trailingComma: "all"`, `printWidth: 100`, `tabWidth: 2`
-- All source files use single quotes for strings
-- Trailing commas on all multi-line structures (arrays, objects, params)
-- Max line width 100 characters
-
-## TypeScript Conventions
-- Explicit types for all exported data and component props
-- Use `interface` for component props extending HTML element attributes (e.g., `ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement>`)
-- Use `type` for simple data shapes (e.g., `export type Service = { id: string; name: string; summary: string }`)
-- Typed static data arrays exported from `src/data/` files
-- `next-env.d.ts` is auto-generated — never edit manually
+## Client vs Server Components
+- Pages (`app/**/page.tsx`) are **Server Components** by default — no `'use client'` unless needed
+- Add `'use client'` only when using hooks (`useState`, `useEffect`, `useRef`), event handlers, or Framer Motion
+- Interactive components (forms, chatbot, animated sections) always have `'use client'` at the top
 
 ## Component Patterns
 
-### Server vs Client Components
-- Default to **Server Components** (no directive needed)
-- Add `'use client'` only when using hooks (`useState`, `useEffect`) or browser APIs
-- Examples requiring `'use client'`: `Navbar.tsx`, `Hero.tsx`, `AnimatedSection.tsx`, `ContactForm.tsx`
+### Re-export aliases
+Thin re-export files are used to decouple section names from implementation locations:
+```ts
+// src/components/sections/CTA.tsx
+export { default } from '@/components/ui/CTASection';
 
-### Component File Structure
-```tsx
-'use client'; // only if needed
-
-import { ... } from '...'; // external imports first
-import ComponentName from '@/components/...'; // internal imports second
-
-export default function ComponentName({ prop1, prop2 }: Props) {
-  // hooks at top
-  // return JSX
-}
+// src/components/ai/LeadBot.tsx
+export { default } from '@/components/ai/LeadChatbot';
 ```
 
-### Props Pattern
-- Destructure props inline in function signature
-- Provide default values inline: `variant = 'primary'`, `className = ''`, `delay = 0`
-- Spread remaining props with `...props` for HTML element wrappers
+### Section structure
+Every page section follows this layout pattern:
+```tsx
+<section className="py-24 bg-slate-950">
+  <div className="max-w-6xl mx-auto px-4">
+    <AnimatedSection className="text-center mb-14">
+      <span className="inline-block rounded-full bg-blue-900/30 border border-blue-500/30 px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-blue-400 mb-4">
+        Section Label
+      </span>
+      <h2 className="text-4xl font-bold text-white">Section Title</h2>
+      <p className="mt-4 text-slate-400 max-w-xl mx-auto">Subtitle text.</p>
+    </AnimatedSection>
+    <div className="grid md:grid-cols-3 gap-6">
+      {items.map((item, i) => (
+        <AnimatedSection key={item.title} delay={i * 0.1}>
+          <Card {...item} />
+        </AnimatedSection>
+      ))}
+    </div>
+  </div>
+</section>
+```
+
+### AnimatedSection wrapper
+Wrap any content that should animate on scroll with `<AnimatedSection>`. Use `delay` prop for staggered children:
+```tsx
+<AnimatedSection delay={0.1}>...</AnimatedSection>
+```
 
 ## Styling Conventions
 
-### Tailwind Usage
-- Use Tailwind utility classes exclusively — no inline `style` except for complex dynamic values (e.g., `backgroundImage` patterns)
-- Responsive prefix order: mobile-first, then `md:`, `lg:`
-- Common layout pattern: `max-w-6xl mx-auto px-4` for page sections
-- Section padding: `py-20` (standard), `py-14` (compact)
+### Dark theme baseline
+All pages use a dark background. Alternate sections between `bg-slate-950` and `bg-slate-900`.
 
-### Color Palette (from `theme.ts`)
-```ts
-primary:   '#2563eb'  // blue-600
-secondary: '#7c3aed'  // purple-600
-accent:    '#06b6d4'  // cyan-500
-dark:      '#0f172a'  // slate-950
+### Brand gradient
+Apply the brand gradient to text using the `.gradient-text` utility class:
+```tsx
+<span className="gradient-text">AI & Automation</span>
 ```
 
-### Gradient Pattern
-- Primary CTA gradient: `bg-gradient-to-r from-blue-600 to-purple-600`
-- Full brand gradient: `from-blue-600 via-purple-600 to-cyan-500`
-- Dark background: `from-slate-900 via-slate-800 to-slate-900`
-- Text gradient: use `gradient-text` CSS utility class
-
-### Custom CSS Utilities (globals.css)
-- `glass` — glassmorphism effect (backdrop-blur + bg-white/opacity + border)
-- `gradient-text` — transparent background-clip text with brand gradient
-
-### Button Variants
+Apply to backgrounds/buttons using Tailwind gradient utilities:
 ```tsx
-// Primary (default)
-'bg-gradient-to-r from-blue-600 to-purple-600 text-white hover:scale-105 hover:shadow-lg hover:shadow-blue-500/25'
+className="bg-gradient-to-r from-blue-600 to-purple-600"
+className="bg-gradient-to-br from-blue-600 to-purple-600"
+```
 
-// Outline
-'border border-slate-300 text-slate-800 hover:bg-slate-50 hover:border-slate-400'
+### Section label badges
+Use this pattern for section category labels:
+```tsx
+<span className="inline-block rounded-full bg-{color}-900/30 border border-{color}-500/30 px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-{color}-400 mb-4">
+  Label
+</span>
+```
+Color varies by section: `blue`, `purple`, `cyan`, `amber`.
+
+### Background decorative orbs
+Use blurred gradient circles for visual depth in hero/CTA sections:
+```tsx
+<div className="absolute -top-20 -left-20 w-64 h-64 bg-blue-600 opacity-20 blur-3xl rounded-full pointer-events-none" />
+<div className="absolute -bottom-20 -right-20 w-64 h-64 bg-purple-600 opacity-20 blur-3xl rounded-full pointer-events-none" />
+```
+
+### Glass effect
+Use `.glass-dark` for dark glassmorphism cards:
+```tsx
+className="glass-dark rounded-2xl p-6"
+```
+
+### Section dividers
+Use the `.section-divider` utility between major page sections:
+```tsx
+<div className="section-divider" />
+```
+
+## Button & Link Patterns
+
+### Primary CTA button
+```tsx
+<Link
+  href="/contact#contact-form"
+  className="inline-flex items-center justify-center rounded-xl bg-gradient-to-r from-blue-600 to-purple-600 px-8 py-3 font-semibold text-white hover:scale-105 hover:shadow-lg hover:shadow-blue-500/25 transition-all duration-200"
+>
+  Book Free Consultation
+</Link>
+```
+
+### Secondary/ghost button
+```tsx
+<Link
+  href="/portfolio"
+  className="inline-flex items-center justify-center rounded-xl border border-white/20 px-8 py-3 font-semibold text-white hover:bg-white/10 transition-all duration-200"
+>
+  View Our Work
+</Link>
 ```
 
 ## Animation Patterns (Framer Motion)
 
-### Scroll-triggered entrance (via AnimatedSection)
-```tsx
-<AnimatedSection delay={0.1}>
-  <YourContent />
-</AnimatedSection>
-// Uses: initial={{ opacity: 0, y: 40 }}, whileInView={{ opacity: 1, y: 0 }}, viewport={{ once: true }}
-```
-
-### Staggered hero animations
-```tsx
-// Each element gets increasing delay: 0, 0.1, 0.2, 0.3...
-<motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.1 }}>
-```
-
-### Ambient background blobs
+### Scroll-triggered entrance (sections)
 ```tsx
 <motion.div
-  animate={{ x: [0, 60, 0], y: [0, 40, 0] }}
-  transition={{ duration: 18, repeat: Infinity, ease: 'easeInOut' }}
-/>
+  initial={{ opacity: 0, y: 30 }}
+  whileInView={{ opacity: 1, y: 0 }}
+  viewport={{ once: true, amount: 0.3 }}
+  transition={{ duration: 0.6 }}
+>
 ```
 
-## Page Composition Pattern
-Pages are thin composers — they import and arrange section components:
+### Page-load entrance (hero elements, staggered)
 ```tsx
-// app/page.tsx pattern
-import Hero from '@/components/sections/Hero';
-import Services from '@/components/sections/Services';
-
-export default function Home() {
-  return (
-    <>
-      <Hero />
-      <Services />
-      {/* inline sections for simple content */}
-    </>
-  );
-}
+<motion.h1
+  initial={{ opacity: 0, y: 30 }}
+  animate={{ opacity: 1, y: 0 }}
+  transition={{ duration: 0.6, delay: 0.1 }}
+>
 ```
 
-## Data Layer Pattern
+### AnimatePresence for mount/unmount
+```tsx
+<AnimatePresence>
+  {open && (
+    <motion.div
+      initial={{ opacity: 0, y: 20, scale: 0.95 }}
+      animate={{ opacity: 1, y: 0, scale: 1 }}
+      exit={{ opacity: 0, y: 20, scale: 0.95 }}
+      transition={{ duration: 0.2, ease: 'easeOut' }}
+    >
+```
+
+### Infinite ambient animations (background blobs)
+```tsx
+animate={{ x: [0, 60, 0], y: [0, 40, 0] }}
+transition={{ duration: 18, repeat: Infinity, ease: 'easeInOut' }}
+```
+
+## Form Patterns
+- Use `react-hook-form` for all forms
+- Validate with inline `register` rules; use Zod for API-level validation
+- Show field errors with `role="alert"` for accessibility
+- Shared input class pattern:
 ```ts
-// src/data/services.ts
-export type Service = { id: string; name: string; summary: string };
-export const services: Service[] = [ ... ];
+const inputBase = 'w-full rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors border bg-white/5 text-white placeholder-slate-500';
+const inputNormal = 'border-white/10';
+const inputError = 'border-red-500 focus:ring-red-500';
 ```
-- Export both the type and the data array from the same file
-- Use `id` field as React `key` prop
+- Submit to `/api/leads` (lead capture) or `/api/contact` (contact email)
+- Show loading state with `<Loader2 className="animate-spin" />` from lucide-react
+- Show success state by replacing form with a confirmation message
 
-## Import Path Convention
-- Always use `@/` alias for internal imports (maps to `src/`)
-- Never use relative `../../` paths for cross-directory imports
+## API Route Patterns
+- API routes live in `src/app/api/*/route.ts`
+- Use Resend for email delivery
+- Return JSON responses with appropriate HTTP status codes
+- Silent error handling in client-side fetch calls (catch blocks with no re-throw for non-critical paths)
 
-## API Routes
-- Located at `src/app/api/[route]/route.ts`
-- Contact form uses Nodemailer for email delivery
-- Lead capture at `/api/leads`
-- Use `zod` for request body validation in API handlers
+## Data Patterns
+- Static data (services, blog posts) lives in `src/data/*.ts` as typed arrays
+- Data is imported directly into pages/sections — no API calls for static content
+- Inline data arrays in page files are acceptable for page-specific content (industries, testimonials, process steps)
 
-## Next.js Config Conventions
-- Turbopack enabled for dev builds
-- Remote image domains explicitly whitelisted in `images.remotePatterns`
-- CDN prefix via `process.env.CDN_URL` (optional, defaults to `''`)
+## Accessibility
+- Skip-to-content link in root layout: `<a href="#main-content" className="sr-only focus:not-sr-only ...">`
+- Main content wrapped in `<main id="main-content">`
+- All interactive elements have `aria-label` attributes
+- Dialog/modal components use `role="dialog"` and `aria-modal="true"`
+- Form error messages use `role="alert"`
+- Form inputs have associated `<label>` elements with matching `htmlFor`/`id`
+
+## Import Conventions
+- Use `@/` path alias for all internal imports (maps to `src/`)
+- Import order: React/Next → third-party → internal components → types/data
+- Lucide icons imported by name: `import { Bot, X, Send } from 'lucide-react'`
+
+## TypeScript
+- Strict mode enabled — no implicit `any`
+- Define local types at the top of the file before the component
+- Use `type` (not `interface`) for component prop shapes and local data types
+- Prefer explicit return types on utility functions; components can infer
 
 ## Naming Conventions
-- **Components**: PascalCase filenames and function names (`AnimatedSection`, `BlogCard`)
-- **Pages**: `page.tsx` (Next.js convention)
-- **Data files**: camelCase (`blogPosts.ts`, `services.ts`)
-- **CSS utilities**: kebab-case (`gradient-text`, `glass`)
-- **Route segments**: kebab-case directories (`ai-agents/`, `ai-solutions/`)
+- Components: PascalCase (`LeadChatbot`, `CTASection`)
+- Files: PascalCase for components, camelCase for data/utility files
+- CSS utility classes: kebab-case (`.gradient-text`, `.glass-dark`)
+- Constants: SCREAMING_SNAKE_CASE for module-level strings (`GREETING`, `QUICK_REPLIES`)

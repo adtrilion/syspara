@@ -36,24 +36,26 @@ export default function NewsletterForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="flex gap-2">
-      <input
-        type="email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-        placeholder="your@email.com"
-        required
-        className="flex-1 rounded-lg border border-slate-700 bg-slate-900 px-3 py-2 text-sm text-white placeholder-slate-600 focus:border-blue-500 focus:outline-none transition"
-      />
-      <button
-        type="submit"
-        disabled={status === 'loading'}
-        className="rounded-lg bg-gradient-to-r from-blue-600 to-purple-600 px-4 py-2 text-sm font-semibold text-white hover:opacity-90 transition disabled:opacity-60"
-      >
-        {status === 'loading' ? '...' : 'Subscribe'}
-      </button>
+    <form onSubmit={handleSubmit} className="flex flex-col gap-2">
+      <div className="flex gap-2">
+        <input
+          type="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          placeholder="your@email.com"
+          required
+          className="flex-1 rounded-lg border border-slate-700 bg-slate-900 px-3 py-2 text-sm text-white placeholder-slate-600 focus:border-blue-500 focus:outline-none transition"
+        />
+        <button
+          type="submit"
+          disabled={status === 'loading'}
+          className="rounded-lg bg-gradient-to-r from-blue-600 to-purple-600 px-4 py-2 text-sm font-semibold text-white hover:opacity-90 transition disabled:opacity-60"
+        >
+          {status === 'loading' ? '...' : 'Subscribe'}
+        </button>
+      </div>
       {status === 'error' && (
-        <p className="absolute mt-10 text-xs text-red-400">Something went wrong. Try again.</p>
+        <p className="text-xs text-red-400" role="alert">Something went wrong. Try again.</p>
       )}
     </form>
   );

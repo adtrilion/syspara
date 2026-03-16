@@ -16,7 +16,7 @@ export default function AIChatbots() {
         <div className="grid md:grid-cols-2 gap-12 items-center">
           <AnimatedSection delay={0.2}>
             <div className="relative rounded-2xl overflow-hidden shadow-2xl shadow-cyan-500/10">
-              <Image src="https://images.unsplash.com/photo-1531746790731-6c087fecd65a?w=800&q=80" alt="AI chatbot interface providing instant customer support" width={600} height={450} className="object-cover w-full h-full" />
+              <Image src="https://images.unsplash.com/photo-1587560699334-cc4ff634909a?w=1200&q=90" alt="AI chatbot interface with dark UI and conversational design" width={600} height={450} className="object-cover w-full h-full" />
               <div className="absolute inset-0 bg-gradient-to-tr from-cyan-900/40 to-transparent" />
             </div>
           </AnimatedSection>

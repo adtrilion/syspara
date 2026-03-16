@@ -1,31 +1,39 @@
 # SysPara Website — Product Overview
 
 ## Purpose
-SysPara is a company website for an AI & automation consultancy that builds AI-powered digital solutions, automations, and enterprise products for modern businesses.
+SysPara is an AI & automation consultancy website that markets and sells AI-powered digital solutions, automations, and enterprise products to modern businesses. The site serves as the primary marketing and lead-generation platform for SysPara's services.
 
 ## Value Proposition
-"Build Smarter with AI & Automation" — SysPara helps businesses grow faster and operate smarter through websites, mobile apps, cloud infrastructure, and AI automation systems.
+"Help modern businesses grow faster and operate smarter" through AI-powered digital solutions, automation, and enterprise products.
 
-## Key Pages / Features
-- **Home** — Hero, trust signals, services overview, industries, portfolio preview, process steps, testimonials, CTA
-- **Services** — Full service catalog with details
-- **AI Solutions** — AI capabilities, analytics, automation, chatbots, integrations
-- **AI Agents** — Agent types, architecture, benefits, use cases
-- **Industries** — Sector-specific solutions with stats
-- **Portfolio** — Project showcase grid
-- **Blog** — Articles with slug-based dynamic routing
-- **Contact** — Contact form with email delivery via Nodemailer, lead capture API
+## Key Features & Capabilities
+- **AI Solutions showcase** — dedicated pages for AI agents, AI solutions, and AI demos
+- **Lead generation** — embedded LeadBot chatbot on every page, contact forms with email delivery via Resend
+- **Portfolio** — case studies and project showcases
+- **Blog** — dynamic slug-based blog with posts
+- **Interactive AI Demo** — live playground for prospects to experience AI capabilities
+- **Dashboard Demo** — visual demonstration of analytics/reporting products
+- **Newsletter signup** — email capture via form
+- **SEO-optimized** — full Open Graph, Twitter Card, robots, sitemap, and structured metadata
 
-## Core Services Offered
-- SaaS Products — scalable platform design and development
-- Automation — AI and RPA-driven process automation
-- MLOps — production ML deployment and maintenance
+## Pages / Routes
+| Route | Purpose |
+|---|---|
+| `/` | Homepage — hero, services, CTA |
+| `/about` | Company story and team |
+| `/services` | Service offerings overview |
+| `/ai-solutions` | AI solutions detail |
+| `/ai-agents` | AI agents detail |
+| `/ai-demo` | Interactive AI playground |
+| `/industries` | Industry verticals served |
+| `/portfolio` | Case studies and work |
+| `/blog` | Blog listing + `/blog/[slug]` |
+| `/contact` | Contact form + info |
+| `/dashboard` | Dashboard demo |
+| `/api/contact` | Email submission API |
+| `/api/leads` | Lead capture API |
 
 ## Target Users
-- Business owners and CTOs evaluating AI/automation vendors
-- Enterprise and SME decision-makers across Healthcare, Real Estate, E-commerce, Education, Finance
-
-## Key Stats Highlighted
-- 10+ years experience
-- 500+ projects delivered
-- Multiple industries served
+- Business owners and decision-makers evaluating AI adoption
+- Enterprise teams seeking automation and MLOps solutions
+- Prospects exploring SysPara's portfolio and case studies

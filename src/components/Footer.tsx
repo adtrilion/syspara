@@ -4,16 +4,16 @@ import NewsletterForm from '@/components/forms/NewsletterForm';
 
 const footerLinks = {
   Services: [
-    { label: 'Web Development', href: '/services' },
-    { label: 'Mobile Apps', href: '/services' },
+    { label: 'Web Development', href: '/services#web-development' },
+    { label: 'Mobile Apps', href: '/services#mobile-apps' },
     { label: 'AI Solutions', href: '/ai-solutions' },
-    { label: 'Cloud Infrastructure', href: '/services' },
+    { label: 'Cloud Infrastructure', href: '/services#cloud-infrastructure' },
   ],
   'AI Solutions': [
     { label: 'AI Agents', href: '/ai-agents' },
-    { label: 'AI Analytics', href: '/ai-solutions' },
-    { label: 'AI Automation', href: '/ai-solutions' },
-    { label: 'Custom AI Models', href: '/ai-solutions' },
+    { label: 'AI Analytics', href: '/ai-solutions#analytics' },
+    { label: 'AI Automation', href: '/ai-solutions#automation' },
+    { label: 'Custom AI Models', href: '/ai-solutions#custom-models' },
   ],
   Resources: [
     { label: 'Blog', href: '/blog' },
