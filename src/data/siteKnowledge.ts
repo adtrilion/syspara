@@ -1,11 +1,8 @@
 import { blogPosts } from './blogPosts';
 
 const blogKnowledge = blogPosts
-  .map(
-    (p) =>
-      `BLOG: ${p.title}\nSummary: ${p.excerpt}\nContent: ${p.content}\nQ&A:\n${p.qa.map((q) => `Q: ${q.q}\nA: ${q.a}`).join('\n')}`,
-  )
-  .join('\n\n---\n\n');
+  .map((p) => `- ${p.title} (${p.category}): ${p.excerpt}`)
+  .join('\n');
 
 export const SITE_KNOWLEDGE = `
 You are Agent SysPara — the AI sales assistant for SysPara, an AI and automation consultancy.

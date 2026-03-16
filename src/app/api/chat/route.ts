@@ -34,6 +34,7 @@ export async function POST(req: NextRequest) {
 
   if (!response.ok) {
     const err = await response.text();
+    console.error('Groq API error:', response.status, err);
     return NextResponse.json({ error: err }, { status: response.status });
   }
 

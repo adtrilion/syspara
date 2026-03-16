@@ -22,6 +22,34 @@ function isValidEmail(e: string) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e);
 }
 
+// Build a valid Groq message array from displayed messages + new user message.
+// Groq requires: alternating user/assistant, always starting with user.
+function buildHistory(
+  messages: Message[],
+  newUserMessage: string,
+): { role: 'user' | 'assistant'; content: string }[] {
+  const history = messages
+    .filter((m) => m.role === 'user' || m.role === 'bot')
+    .map((m) => ({
+      role: (m.role === 'bot' ? 'assistant' : 'user') as 'user' | 'assistant',
+      content: m.text,
+    }))
+    .concat({ role: 'user', content: newUserMessage });
+
+  // Drop everything before the first user message
+  const firstUserIdx = history.findIndex((m) => m.role === 'user');
+  const trimmed = firstUserIdx > 0 ? history.slice(firstUserIdx) : history;
+
+  // Collapse consecutive same-role messages (safety net)
+  return trimmed.reduce<{ role: 'user' | 'assistant'; content: string }[]>((acc, msg) => {
+    if (acc.length > 0 && acc[acc.length - 1].role === msg.role) {
+      acc[acc.length - 1].content += '\n' + msg.content;
+      return acc;
+    }
+    return [...acc, msg];
+  }, []);
+}
+
 export default function LeadChatbot() {
   const [open, setOpen] = useState(false);
   const [messages, setMessages] = useState<Message[]>([]);
@@ -33,7 +61,6 @@ export default function LeadChatbot() {
   const bottomRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const idRef = useRef(0);
-  const historyRef = useRef<{ role: 'user' | 'assistant'; content: string }[]>([]);
   const highIntentTriggered = useRef(false);
 
   function nextId() {
@@ -46,26 +73,26 @@ export default function LeadChatbot() {
     setTimeout(() => {
       setTyping(false);
       setMessages((prev) => [...prev, { id: nextId(), role: 'bot', text }]);
-      historyRef.current.push({ role: 'assistant', content: text });
     }, delay);
   }
 
-  async function getAIResponse(userMessage: string): Promise<string> {
-    historyRef.current.push({ role: 'user', content: userMessage });
+  async function getAIResponse(currentMessages: Message[], userMessage: string): Promise<string> {
+    const history = buildHistory(currentMessages, userMessage);
     try {
       const res = await fetch('/api/chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ messages: historyRef.current }),
+        body: JSON.stringify({ messages: history.slice(-10) }),
       });
       const data = await res.json();
+      if (!res.ok) throw new Error(data.error ?? 'API error');
       return data.reply ?? "I'm having trouble right now. Please contact us at info@syspara.in.";
     } catch {
       return "I'm having trouble right now. Please contact us at info@syspara.in or call +971 544 31 8822.";
     }
   }
 
-  async function submitLead(finalLead: typeof lead, context: string) {
+  async function submitLead(finalLead: typeof lead, count: number) {
     try {
       await fetch('/api/leads', {
         method: 'POST',
@@ -75,7 +102,7 @@ export default function LeadChatbot() {
           email: finalLead.email,
           phone: finalLead.phone,
           service: 'Agent SysPara — Chatbot Lead',
-          message: context,
+          message: `Lead captured via Agent SysPara after ${count} messages.`,
         }),
       });
     } catch {
@@ -87,7 +114,6 @@ export default function LeadChatbot() {
     if (open && messages.length === 0) {
       setTimeout(() => {
         setMessages([{ id: nextId(), role: 'bot', text: GREETING }]);
-        historyRef.current.push({ role: 'assistant', content: GREETING });
       }, 300);
     }
     if (open) setTimeout(() => inputRef.current?.focus(), 400);
@@ -103,9 +129,12 @@ export default function LeadChatbot() {
     setInput('');
     const newCount = msgCount + 1;
     setMsgCount(newCount);
+
+    // Snapshot messages before state update for history building
+    const currentMessages = [...messages];
     setMessages((prev) => [...prev, { id: nextId(), role: 'user', text: val }]);
 
-    // Lead capture flow
+    // Lead capture flow — no AI needed
     if (stage === 'ask_name') {
       setLead((l) => ({ ...l, name: val }));
       setStage('ask_email');
@@ -128,8 +157,7 @@ export default function LeadChatbot() {
       const finalLead = { ...lead, phone: val };
       setLead(finalLead);
       setStage('done');
-      const context = `Lead captured via Agent SysPara chatbot after ${newCount} messages.\nConversation summary: ${historyRef.current.slice(0, 6).map((m) => `${m.role}: ${m.content}`).join(' | ')}`;
-      await submitLead(finalLead, context);
+      await submitLead(finalLead, newCount);
       addBot(
         `You're all set, ${finalLead.name}! ✅ I've sent your details to the SysPara team — someone will reach out within 1 business day.\n\nIn the meantime, feel free to explore syspara.in/ai-demo to see our AI in action. Anything else I can help with?`,
         800,
@@ -137,15 +165,14 @@ export default function LeadChatbot() {
       return;
     }
 
-    // Get AI response first
+    // AI response
     setTyping(true);
-    const reply = await getAIResponse(val);
+    const reply = await getAIResponse(currentMessages, val);
     setTyping(false);
     setMessages((prev) => [...prev, { id: nextId(), role: 'bot', text: reply }]);
 
-    // High-intent detection — trigger lead capture once
-    const isHighIntent = HIGH_INTENT_PATTERNS.test(val);
-    if (isHighIntent && !highIntentTriggered.current && stage === 'chat') {
+    // High-intent detection
+    if (HIGH_INTENT_PATTERNS.test(val) && !highIntentTriggered.current && stage === 'chat') {
       highIntentTriggered.current = true;
       setTimeout(() => {
         addBot(
@@ -157,7 +184,7 @@ export default function LeadChatbot() {
       return;
     }
 
-    // Fallback: offer lead capture after 4 exchanges
+    // Fallback lead capture after 4 exchanges
     if (stage === 'chat' && newCount === 4 && !highIntentTriggered.current) {
       highIntentTriggered.current = true;
       setTimeout(() => {
@@ -265,7 +292,7 @@ export default function LeadChatbot() {
                 </motion.div>
               )}
 
-              {/* Quick replies — only on first message */}
+              {/* Quick replies */}
               {messages.length === 1 && !typing && stage === 'chat' && (
                 <motion.div initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }} className="flex flex-wrap gap-2 pt-1">
                   {QUICK_REPLIES.map((q) => (
