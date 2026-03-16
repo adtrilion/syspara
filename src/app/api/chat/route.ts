@@ -22,7 +22,7 @@ export async function POST(req: NextRequest) {
       Authorization: `Bearer ${apiKey}`,
     },
     body: JSON.stringify({
-      model: 'llama-3.1-8b-instant',
+      model: 'llama3-70b-8192',
       messages: [
         { role: 'system', content: SITE_KNOWLEDGE },
         ...messages.slice(-10), // keep last 10 messages for context window
